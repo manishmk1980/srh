@@ -230,9 +230,8 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
                 <p className="text-xs text-text-muted leading-relaxed font-medium">{result.desc}</p>
               </div>
 
-              <div className="pt-2 border-t border-[#D7E7EA]/50 flex justify-between items-baseline">
-                <span className="text-[10px] font-bold text-text-light uppercase">Checkup Cost Starting from</span>
-                <span className="text-lg font-heading font-extrabold text-[#0B1633]">₹{result.price}</span>
+              <div className="pt-2 border-t border-[#D7E7EA]/50">
+                <span className="text-[10px] font-bold text-text-light uppercase">Service details available on enquiry</span>
               </div>
             </div>
 

@@ -1,34 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  ArrowRight, 
-  Activity, 
-  Heart, 
-  ShieldCheck, 
-  Thermometer, 
-  Stethoscope, 
-  Globe, 
-  Building, 
-  Users2, 
-  HeartHandshake, 
-  Menu, 
-  X, 
-  ChevronRight,
-  ShieldAlert,
-  HelpCircle,
-  FileText,
-  MessageSquare,
-  Sparkles
-} from 'lucide-react';
+import { Activity, ArrowRight, Building, ChevronRight, ClipboardList, Clock, FileText, Globe, Heart, HeartHandshake, HeartPulse, HelpCircle, Mail, MapPin, Menu, MessageSquare, Phone, ShieldAlert, ShieldCheck, Sparkles, Stethoscope, Thermometer, Users2, X } from 'lucide-react';
 
 import Logo from './components/Logo';
 import KioskSimulator from './components/KioskSimulator';
 import BookingModal from './components/BookingModal';
 import ServiceInquiryForm from './components/ServiceInquiryForm';
 import HealthScoreCalculator from './components/HealthScoreCalculator';
+import SocialIcon from './components/SocialIcon';
 import { ServiceType, BookingSubmission } from './types';
 
 // @ts-ignore
@@ -44,9 +22,15 @@ export default function App() {
   const [latestBooking, setLatestBooking] = useState<BookingSubmission | null>(null);
 
   const handleOpenBooking = (serviceId: ServiceType | null = null) => {
-    setSelectedServiceId(serviceId);
-    setIsBookingOpen(true);
-    // Auto-close mobile menu if open
+    if (serviceId) {
+      setSelectedServiceId(serviceId);
+    }
+
+    const contact = document.getElementById('contact-panel');
+    if (contact) {
+      contact.scrollIntoView({ behavior: 'smooth' });
+    }
+
     setMobileMenuOpen(false);
   };
 
@@ -164,14 +148,14 @@ export default function App() {
     <div className="min-h-screen bg-bg-light text-text-navy selection:bg-primary-teal selection:text-white" id="srh-main-app-root">
       
       {/* 1. TOP ACCESS PANEL (Alert block about secure booking status) */}
-      <div className="bg-[#072033] text-white py-2 px-6 border-b border-white/5 text-center text-[11px] font-mono tracking-wide font-semibold select-none z-50 relative flex flex-wrap justify-center items-center gap-3">
+      <div id="srh-topbar" className="bg-[#072033] text-white py-2 px-6 border-b border-white/5 text-center text-[11px] font-mono tracking-wide font-semibold select-none z-50 relative flex flex-wrap justify-center items-center gap-3">
         <span className="flex items-center gap-1.5 text-[#FABC09]">
           <ShieldCheck className="w-3.5 h-3.5" /> VERIFIED HEALTHCARE SERVICES
         </span>
         <span className="hidden md:inline text-slate-400">•</span>
-        <span>Secure Payment Support Available</span>
+        <span>Secure Service Enquiry Support Available</span>
         <span className="hidden md:inline text-slate-400">•</span>
-        <span className="text-cyan-400 font-bold">Ambey Sales Operations Noida NCR</span>
+        <span className="text-cyan-400 font-bold">Ambey Sales Healthcare Services</span>
         {latestBooking && (
           <div className="bg-emerald-600 text-white rounded p-1 px-2.5 ml-2 border border-emerald-400 font-sans text-[10px] animate-pulse">
             Active Booking: {latestBooking.id} ({latestBooking.patientName})
@@ -180,21 +164,20 @@ export default function App() {
       </div>
 
       {/* 2. NAVIGATION BAR */}
-      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-[#D7E7EA] h-18 z-50 transition-all shadow-xs" id="srh-main-nav">
-        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-[#D7E7EA] min-h-[84px] z-50 transition-all shadow-xs" id="srh-main-nav">
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
           
           {/* Logo with clean compact alignment */}
-          <Logo variant="compact" size={38} className="cursor-pointer" />
+          <Logo variant="compact" size={52} className="cursor-pointer" />
           
           {/* Desktop Links */}
           <nav className="hidden lg:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-text-muted" aria-label="Main Navigation">
-            <button onClick={() => scrollToSection('about-narrative')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">About Us</button>
+            <button onClick={() => scrollToSection('about-narrative')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">About</button>
             <button onClick={() => scrollToSection('clinical-plans')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Services</button>
             <button onClick={() => scrollToSection('digital-kiosk')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Technology</button>
             <button onClick={() => scrollToSection('onboarding-timeline')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">How It Works</button>
             <button onClick={() => scrollToSection('certifications-compliance')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Certifications</button>
             <button onClick={() => scrollToSection('faq-block')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">FAQs</button>
-            <button onClick={() => scrollToSection('contact-panel')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Contact</button>
           </nav>
 
           {/* Right Action Trigger CTA */}
@@ -204,7 +187,7 @@ export default function App() {
               className="px-5 py-2.5 bg-primary-teal hover:bg-[#072033] text-white text-[11px] font-extrabold uppercase tracking-widest rounded-full transition-all duration-200 select-none shadow-md flex items-center gap-2 outline-none focus:ring-2 focus:ring-[#FABC09]"
               id="top-cta-book-service"
             >
-              <Stethoscope className="w-3.5 h-3.5 shrink-0" /> Book a Health Service
+              <Stethoscope className="w-3.5 h-3.5 shrink-0" /> Enquire Health Service
             </button>
           </div>
 
@@ -222,8 +205,8 @@ export default function App() {
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-[#D7E7EA] p-6 space-y-4 shadow-xl animate-fade-in" id="mobile-nav-links-box">
             <div className="flex flex-col gap-3 font-heading font-extrabold text-[#0B1633] tracking-wide text-sm">
-              <button onClick={() => scrollToSection('about-narrative')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">About Us</button>
-              <button onClick={() => scrollToSection('clinical-plans')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Services & Pricing</button>
+              <button onClick={() => scrollToSection('about-narrative')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">About</button>
+              <button onClick={() => scrollToSection('clinical-plans')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Services</button>
               <button onClick={() => scrollToSection('digital-kiosk')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Our Health Technology</button>
               <button onClick={() => scrollToSection('onboarding-timeline')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">How It Works</button>
               <button onClick={() => scrollToSection('certifications-compliance')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Certifications</button>
@@ -235,27 +218,27 @@ export default function App() {
               onClick={() => handleOpenBooking()}
               className="w-full py-3 bg-primary-teal text-white rounded-xl text-xs font-heading font-extrabold text-center uppercase tracking-wider block"
             >
-              Book a Health Service
+              Enquire Health Service
             </button>
           </div>
         )}
       </header>
 
       {/* 3. GRAND HERO CONTAINER SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-20 md:py-24 bg-gradient-to-b from-white via-bg-soft/20 to-bg-light" id="hero-fold">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-bg-soft/20 to-bg-light" id="hero-fold">
         {/* Subtle decorative background waves */}
         <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-sky-200/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-teal-100/10 rounded-full blur-2xl pointer-events-none -z-10"></div>
         
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-8 lg:gap-12 items-center">
             
             {/* Left Copy block elements */}
             <div className="lg:col-span-5 xl:col-span-5 space-y-5 text-center lg:text-left">
               
               <div className="inline-flex items-center gap-1.5 p-1 px-3 bg-[#EEF8FA] rounded-full border border-teal-200/50 text-[#0E7490] font-sans font-bold text-xs">
-                <Sparkles className="w-3.5 h-3.5 text-primary-teal" /> 
-                <span>DIGITAL REMOTELY-GUIDED ASSISTED HEALTHCARE</span>
+                <Stethoscope className="w-3.5 h-3.5 text-primary-teal" /> 
+                <span>PREVENTIVE HEALTH SCREENING SUPPORT</span>
               </div>
 
               <div className="space-y-3">
@@ -270,7 +253,7 @@ export default function App() {
               </div>
 
               <p className="font-sans text-sm md:text-base text-text-muted leading-relaxed max-w-xl mx-auto lg:mx-0">
-                SRH SWASTH SEVA supports preventive health screening, consultation booking, follow-up care, and specialist consultation coordination. Choose a service and book securely from ₹199 onwards.
+                SRH SWASTH SEVA supports preventive health screening, consultation booking, follow-up care, and specialist consultation coordination. Choose a service and our support team will confirm availability, scope, and next steps.
               </p>
 
               {/* Action shortcuts */}
@@ -279,7 +262,7 @@ export default function App() {
                   onClick={() => handleOpenBooking()}
                   className="w-full sm:w-auto p-4 px-8 bg-primary-teal hover:bg-[#072033] text-white font-heading font-extrabold text-xs tracking-widest uppercase rounded-full transition-all duration-200 select-none shadow-lg flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-[#FABC09]"
                 >
-                  <Stethoscope className="w-4 h-4" /> Book Vital Service Checkup
+                  <Stethoscope className="w-4 h-4" /> Enquire This Service
                 </button>
 
                 <button
@@ -327,7 +310,7 @@ export default function App() {
 
       {/* 4. CORE TRUST BADGES BLOCK */}
       <section className="bg-white py-12 border-y border-[#D7E7EA]" id="core-trust-strip">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
             <div className="p-5 bg-bg-light border border-[#D7E7EA] rounded-2xl flex gap-4 items-start shadow-xs">
@@ -345,8 +328,8 @@ export default function App() {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div className="space-y-1">
-                <h5 className="font-heading font-black text-[#0B1633] text-sm">Secure Transactions</h5>
-                <p className="text-xs text-text-muted leading-relaxed">Encrypted booking protocols integrated with sandbox payment infrastructure.</p>
+                <h5 className="font-heading font-black text-[#0B1633] text-sm">Secure Enquiry</h5>
+                <p className="text-xs text-text-muted leading-relaxed">Service enquiry support with clear follow-up and confirmation process.</p>
               </div>
             </div>
 
@@ -375,9 +358,9 @@ export default function App() {
       </section>
 
       {/* 5. ABOUT NARRATIVE FOLD */}
-      <section className="py-20 bg-bg-light relative" id="about-narrative">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="py-14 sm:py-16 lg:py-20 bg-bg-light relative" id="about-narrative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Graphic placeholder */}
             <div className="lg:col-span-5 relative flex justify-center">
@@ -386,7 +369,7 @@ export default function App() {
                 {/* Elegant placeholder illustrating health camp with kiosk */}
                 <div className="p-8 text-center bg-[#072033] text-white space-y-4 py-16">
                   <div className="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl text-[#FABC09]">
-                    <Logo variant="full" size={42} />
+                    <Logo variant="full" size={76} />
                   </div>
                   <div className="space-y-1.5">
                     <span className="text-[10px] text-[#FABC09] font-bold tracking-widest uppercase font-mono">MISSION STATEMENT</span>
@@ -451,19 +434,19 @@ export default function App() {
       </section>
 
       {/* 6. SERVICES AND PRICING GRID */}
-      <section className="py-20 bg-white border-y border-[#D7E7EA]" id="clinical-plans">
-        <div className="max-w-7xl mx-auto px-6 text-center space-y-4">
+      <section className="py-14 sm:py-16 lg:py-20 bg-white border-y border-[#D7E7EA]" id="clinical-plans">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-4">
           <div className="space-y-2">
-            <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">OUR TRANSPARENT PRICING</span>
+            <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">AVAILABLE HEALTHCARE SERVICES</span>
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight leading-tight">
-              Clinical Screening Services
+              Healthcare Screening & Consultation Services
             </h2>
             <p className="text-xs text-text-muted max-w-xl mx-auto font-sans leading-relaxed">
-              Choose from our selection of premium clinical checklist plans. All payments simulate secure Razorpay gateway operations.
+              Choose from available healthcare services. Our support team will confirm service scope, availability, and next steps.
             </p>
           </div>
 
-          {/* Pricing cards grid */}
+          {/* Services cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
             {servicesList.map((srv) => (
               <div 
@@ -515,14 +498,10 @@ export default function App() {
                   </ul>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-[#D7E7EA]/50 text-left space-y-4">
-                  <div className="flex justify-between items-baseline">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wide text-text-light font-mono">Starting From</span>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-heading font-black text-[#0B1633] font-mono">₹{srv.price}</span>
-                      <span className="text-[10px] font-sans text-text-light font-medium uppercase font-mono">inclusive</span>
-                    </div>
-                  </div>
+                <div className="pt-5 mt-5 border-t border-[#D7E7EA]/50 text-left space-y-4">
+                  <p className="text-[12px] text-text-muted leading-relaxed font-medium">
+                    Service availability, scope, and final charges will be confirmed by our support team before booking.
+                  </p>
 
                   <button
                     onClick={() => handleOpenBooking(srv.id)}
@@ -532,7 +511,7 @@ export default function App() {
                         : 'bg-white border border-slate-300 hover:border-primary-teal text-text-navy'
                     }`}
                   >
-                    Select Plan & Book
+                    Enquire This Service
                   </button>
                 </div>
               </div>
@@ -542,8 +521,8 @@ export default function App() {
       </section>
 
       {/* 7. HOW IT WORKS TIMELINE SECTION */}
-      <section className="py-20 bg-bg-light" id="onboarding-timeline">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-14 sm:py-16 lg:py-20 bg-bg-light" id="onboarding-timeline">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center space-y-2 max-w-xl mx-auto mb-12">
             <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">4-STEP WELLNESS ONBOARDING</span>
             <h2 className="font-heading font-black text-3xl text-text-navy tracking-tight">How It Works</h2>
@@ -574,9 +553,9 @@ export default function App() {
                 <div className="w-10 h-10 bg-[#072033] text-white rounded-full font-mono font-bold text-sm flex items-center justify-center mx-auto mb-4 border-2 border-[#CBD5E1] shadow-md">
                   2
                 </div>
-                <h4 className="font-heading font-black text-[#0B1633] text-sm mb-2">Secure Fast Payment</h4>
+                <h4 className="font-heading font-black text-[#0B1633] text-sm mb-2">Submit Service Enquiry</h4>
                 <p className="text-xs text-text-muted font-sans leading-relaxed">
-                  Complete checkout via our secure simulated Razorpay interface using UPI, NetBanking, or Cards with SSL encryption.
+                  Submit your service enquiry. Our support team will confirm service availability, scope, and next steps.
                 </p>
               </div>
             </div>
@@ -610,8 +589,8 @@ export default function App() {
       </section>
 
       {/* 8. PRODUCT SHOWCASE SECTION */}
-      <section className="py-20 bg-white border-y border-[#E5E2DB]" id="digital-kiosk">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-14 sm:py-16 lg:py-20 bg-white border-y border-[#E5E2DB]" id="digital-kiosk">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center space-y-2 max-w-xl mx-auto mb-16">
             <span className="text-xs text-primary-teal font-extrabold uppercase tracking-widest font-mono">OUR ADVANCED HARDWARE</span>
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight leading-none">Our Health Kiosks</h2>
@@ -759,8 +738,8 @@ export default function App() {
       </section>
 
       {/* 9. CERTIFICATIONS & COMPLIANCE SECTION */}
-      <section className="py-20 bg-bg-light relative overflow-hidden border-b border-[#E5E2DB] medical-grid-pattern" id="certifications-compliance">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <section className="py-14 sm:py-16 lg:py-20 bg-bg-light relative overflow-hidden border-b border-[#E5E2DB] medical-grid-pattern" id="certifications-compliance">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           
           <div className="text-center space-y-3 max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 p-1 px-4 bg-[#EDEBDF] border border-[#E5E2DB] rounded-full text-[10px] font-mono font-extrabold tracking-widest text-[#8A7650]">
@@ -937,9 +916,9 @@ export default function App() {
       </section>
 
       {/* 10. INTERACTIVE SELF-ASSESSMENT GRID SEGMENT */}
-      <section className="py-20 bg-white border-y border-[#D7E7EA]" id="patient-self-test-fold">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="py-14 sm:py-16 lg:py-20 bg-white border-y border-[#D7E7EA]" id="patient-self-test-fold">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Column: Embed self-check assessment scorecard */}
             <div className="lg:col-span-6 w-full">
@@ -983,7 +962,7 @@ export default function App() {
       </section>
 
       {/* 11. FAQ ACCORDION SECTION */}
-      <section className="py-20 bg-bg-light" id="faq-block">
+      <section className="py-14 sm:py-16 lg:py-20 bg-bg-light" id="faq-block">
         <div className="max-w-4xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">RESOLVING YOUR INQUIRIES</span>
@@ -1022,9 +1001,9 @@ export default function App() {
       </section>
 
       {/* 12. GET IN TOUCH AND SUPPORT PANEL HEADER */}
-      <section className="py-20 bg-white border-t border-[#D7E7EA]" id="contact-panel">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section className="py-14 sm:py-16 lg:py-20 bg-white border-t border-[#D7E7EA]" id="contact-panel">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Contact details list */}
             <div className="lg:col-span-5 space-y-8">
@@ -1093,7 +1072,7 @@ export default function App() {
 
               {/* Safety banner */}
               <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-[11px] text-emerald-800 font-sans leading-relaxed font-semibold">
-                Your health information and service details are handled with care for booking, consultation coordination, payment support, and service assistance.
+                Your health information and service details are handled with care for booking, consultation coordination, service support, and service assistance.
               </div>
             </div>
 
@@ -1102,8 +1081,8 @@ export default function App() {
               <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-xl pointer-events-none"></div>
               
               <div className="space-y-1 mb-6 border-b border-[#D7E7EA] pb-3">
-                <span className="text-[10px] font-extrabold uppercase font-mono text-[#0E7490]">B2B Clinical Booking Desk</span>
-                <h4 className="font-heading font-black text-[#0B1633] text-lg">Send Partnership inquiry</h4>
+                <span className="text-[10px] font-extrabold uppercase font-mono text-[#0E7490]">Service Enquiry Desk</span>
+                <h4 className="font-heading font-black text-[#0B1633] text-lg">Send Service Enquiry</h4>
               </div>
 
               {/* Import form handler capturing inputs into LocalStorage registries */}
@@ -1116,13 +1095,13 @@ export default function App() {
 
       {/* 13. ULTIMATE ACCESSIBLE FOOTER */}
       <footer className="bg-[#072033] text-white pt-16 pb-8" id="srh-ultimate-footer">
-        <div className="max-w-7xl mx-auto px-6 space-y-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             
             {/* Side 1: Logo & summary */}
             <div className="md:col-span-5 space-y-4">
-              <Logo variant="light-text" size={36} />
+              <Logo variant="light-text" size={68} />
               
               <p className="text-xs text-slate-400 font-sans leading-relaxed max-w-sm font-medium">
                 SRH SWASTH SEVA is a preventive healthcare screening and consultation support service brand operated by <span className="text-white font-semibold">Ambey Sales</span>. We support vital screening, consultation coordination, follow-up care, and specialist consultation booking.
@@ -1163,10 +1142,10 @@ export default function App() {
               </p>
               
               <div className="flex gap-3 text-xs">
-                <a href="#facebook" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white">FB</a>
-                <a href="#instagram" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white">IG</a>
-                <a href="#linkedin" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white">LN</a>
-                <a href="#youtube" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white">YT</a>
+                <a href="#facebook" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="Facebook"><SocialIcon name="facebook" className="w-4 h-4" /><span className="sr-only">Facebook</span></a>
+                <a href="#instagram" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="Instagram"><SocialIcon name="instagram" className="w-4 h-4" /><span className="sr-only">Instagram</span></a>
+                <a href="#linkedin" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="LinkedIn"><SocialIcon name="linkedin" className="w-4 h-4" /><span className="sr-only">LinkedIn</span></a>
+                <a href="#youtube" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="YouTube"><SocialIcon name="youtube" className="w-4 h-4" /><span className="sr-only">YouTube</span></a>
               </div>
             </div>
 

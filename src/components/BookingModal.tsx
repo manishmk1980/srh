@@ -480,7 +480,7 @@ export default function BookingModal({
                 {paymentMethod === 'razorpay' && (
                   <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Express Simulated Razorpay Sandbox. No credentials required, mock transactions are free and instant.</span>
+                    <span>Service enquiry support is available. Our team will confirm scope, availability, and next steps.</span>
                   </div>
                 )}
               </div>

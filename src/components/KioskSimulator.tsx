@@ -170,13 +170,13 @@ export default function KioskSimulator() {
 
         <div className="relative z-10 flex flex-col gap-2">
           <span className="p-1 px-2.5 bg-white/10 rounded-full text-[10px] w-fit font-bold font-mono text-[#FABC09] tracking-widest uppercase">
-            FLAGSHIP DESIGN
+            SERVICE PREVIEW
           </span>
           <h4 className="font-heading font-extrabold text-[#FABC09] text-xl tracking-tight uppercase">
-            Linear Actuator Model
+            Digital Care Setup
           </h4>
           <p className="text-xs text-[#D7E7EA] font-sans">
-            Designed to bring digital remote clinics to hospitals, factories, corporate estates, & NGO community centers.
+            Designed to support screening, consultation coordination, and assisted healthcare workflows.
           </p>
         </div>
 
@@ -188,7 +188,7 @@ export default function KioskSimulator() {
             {/* Top header camera hole */}
             <div className="w-2 h-2 bg-black rounded-full mt-2 border border-slate-700"></div>
 
-            {/* Simulated Glass Touch Screen */}
+            {/* Interactive vitals preview screen */}
             <div className="w-[84%] h-24 bg-sky-950 mt-3 rounded-lg border-2 border-[#FABC09]/70 relative overflow-hidden flex flex-col justify-between p-1 select-none">
               {/* LED status indicator */}
               <div className="flex justify-between items-center text-[7px] font-mono text-cyan-400 px-1">
@@ -244,8 +244,8 @@ export default function KioskSimulator() {
         <div>
           <div className="flex justify-between items-center border-b border-[#D7E7EA] pb-3 mb-5">
             <div>
-              <span className="text-xs text-[#0E7490] font-bold uppercase tracking-wider font-mono">Interactive Vitals Preview</span>
-              <h5 className="font-heading font-extrabold text-[#0B1633] text-lg">Digital Clinical Vitals Screen</h5>
+              <span className="text-xs text-[#0E7490] font-bold uppercase tracking-wider font-mono">Service Vitals Preview</span>
+              <h5 className="font-heading font-extrabold text-[#0B1633] text-lg">Digital Vitals Preview</h5>
             </div>
             <button
               onClick={() => {
@@ -301,7 +301,7 @@ export default function KioskSimulator() {
             <div className="h-20 bg-slate-950 rounded-2xl flex flex-col justify-between p-2 relative overflow-hidden shadow-inner border-2 border-slate-800">
               <div className="flex justify-between items-center text-[10px] text-emerald-400 font-mono">
                 <span className="flex items-center gap-1">
-                  <Activity className="w-3.5 h-3.5 animate-pulse" /> Live ECG Simulator
+                  <Activity className="w-3.5 h-3.5 animate-pulse" /> Vitals Preview
                 </span>
                 <span>{scanState === 'scanning' ? 'ACTIVE screening probe...' : 'SCREEN STANDBY'}</span>
               </div>
@@ -311,8 +311,8 @@ export default function KioskSimulator() {
               </svg>
 
               <div className="flex justify-between items-center text-[9px] text-[#FABC09] font-mono">
-                <span>REACH_AI INTEGRATED SENSING</span>
-                <span>120Hz HIGH-FRAME RATE</span>
+                <span>SRH SERVICE WORKFLOW</span>
+                <span>ASSISTED MODE</span>
               </div>
             </div>
 
@@ -427,7 +427,7 @@ export default function KioskSimulator() {
         <div className="mt-6 pt-5 border-t border-[#D7E7EA] flex flex-col xl:flex-row gap-4 items-start xl:items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-text-light font-medium">
             <BrainCircuit className="w-4 h-4 text-primary-teal" />
-            <span>Try dynamic vitals simulator before you book.</span>
+            <span>Preview the service flow before enquiry.</span>
           </div>
 
           <button
@@ -436,7 +436,7 @@ export default function KioskSimulator() {
             className="w-full xl:w-auto p-3.5 px-6 rounded-full bg-primary-teal hover:bg-[#072033] text-white font-heading font-extrabold text-xs tracking-wider transition-all select-none shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <Sparkles className="w-4 h-4 text-[#FABC09] shrink-0" />
-            {scanState === 'scanning' ? 'Vital Scan actively in progress...' : 'Measure Simulated Vitals'}
+            {scanState === 'scanning' ? 'Vital Scan actively in progress...' : 'Preview Vitals Flow'}
           </button>
         </div>
 
