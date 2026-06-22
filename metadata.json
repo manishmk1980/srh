@@ -1,0 +1,6 @@
+{
+  "name": "SRH Swasth Seva",
+  "description": "Premium healthcare screening and consultation service operated by Ambey Sales. Har Din Swasth.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
