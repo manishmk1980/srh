@@ -516,7 +516,7 @@ export default function BookingModal({
               <div className="flex justify-center items-center gap-4 text-[10px] text-text-light font-bold">
                 <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-emerald-600" /> Hosted on Secured Servers</span>
                 <span>•</span>
-                <span>Operated by Ambey Sales</span>
+                <span>Operated by M/S AMBEY SALES</span>
               </div>
             </div>
           )}
@@ -595,7 +595,7 @@ export default function BookingModal({
 
                 {/* Footer seal of trust on invoice */}
                 <div className="bg-slate-50 px-5 py-2.5 flex justify-between items-center border-t border-[#D7E7EA]/60 text-[9px] text-text-light">
-                  <span>Operated by: Ambey Sales Support</span>
+                  <span>Operated by: M/S AMBEY SALES</span>
                   <span className="font-mono">IP Secured Gateway Standard</span>
                 </div>
               </div>

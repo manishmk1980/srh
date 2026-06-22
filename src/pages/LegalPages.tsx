@@ -29,7 +29,7 @@ type PolicyPageData = {
 };
 
 const CONTACT_EMAIL = 'support@srhswasthseva.com';
-const CONTACT_PHONE = '+91 98765 43210';
+const CONTACT_PHONE = '+91 92344 65621';
 
 export function getLegalPageSlug(): LegalSlug | null {
   const knownSlugs: LegalSlug[] = [
@@ -62,7 +62,7 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
       {
         heading: '1. Introduction',
         body: [
-          'SRH SWASTH SEVA is a healthcare service brand operated by Ambey Sales. This Privacy Policy explains how we collect, use, store, and protect information shared by users while booking vital screening, consultation support, follow-up consultation, specialist consultation, or contacting our support team.',
+          'SRH SWASTH SEVA is a healthcare service brand operated by M/S AMBEY SALES. This Privacy Policy explains how we collect, use, store, and protect information shared by users while booking vital screening, consultation support, follow-up consultation, specialist consultation, or contacting our support team.',
           'By using this website or submitting a service inquiry, you agree to the practices described in this Privacy Policy.',
         ],
       },
@@ -133,7 +133,7 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
         heading: '1. Acceptance of Terms',
         body: [
           'By accessing this website, submitting an inquiry, booking a healthcare service, or making a payment, you agree to these Terms & Service Conditions.',
-          'SRH SWASTH SEVA is a healthcare service brand operated by Ambey Sales.',
+          'SRH SWASTH SEVA is a healthcare service brand operated by M/S AMBEY SALES.',
         ],
       },
       {
@@ -401,7 +401,7 @@ function PolicyContent({ data }: { data: PolicyPageData }) {
                 </p>
                 <p className="flex items-start gap-3">
                   <FileText className="w-4 h-4 text-[#FABC09] mt-0.5 shrink-0" />
-                  <span>Brand operated by Ambey Sales</span>
+                  <span>Brand operated by M/S AMBEY SALES</span>
                 </p>
                 <p className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-[#FABC09] mt-0.5 shrink-0" />

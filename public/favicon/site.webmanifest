@@ -1,15 +1,15 @@
 {
   "name": "SRH SWASTH SEVA",
   "short_name": "SRH Swasth",
-  "description": "Vital screening and consultation support by SRH SWASTH SEVA, operated by Ambey Sales.",
+  "description": "Vital screening and consultation support by SRH SWASTH SEVA, operated by M/S AMBEY SALES.",
   "icons": [
     {
-      "src": "/srh/favicon/android-chrome-192x192.png",
+      "src": "/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/srh/favicon/android-chrome-512x512.png",
+      "src": "/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -17,5 +17,5 @@
   "theme_color": "#04496D",
   "background_color": "#F7FBFC",
   "display": "standalone",
-  "start_url": "/srh/"
+  "start_url": "/"
 }

@@ -124,7 +124,7 @@ export default function App() {
   const faqs = [
     {
       q: 'Who operates SRH SWASTH SEVA?',
-      a: 'SRH SWASTH SEVA is a premium preventative assisted-healthcare brand operated and executed in India by Ambey Sales. We manufacture, deploy, and support advanced digital health kiosks and clinical screening setups.'
+      a: 'SRH SWASTH SEVA is a premium preventative assisted-healthcare brand operated and executed in India by M/S AMBEY SALES. We manufacture, deploy, and support advanced digital health kiosks and clinical screening setups.'
     },
     {
       q: 'What is the Linear Actuator Model Kiosk?',
@@ -155,7 +155,7 @@ export default function App() {
         <span className="hidden md:inline text-slate-400">•</span>
         <span>Secure Service Enquiry Support Available</span>
         <span className="hidden md:inline text-slate-400">•</span>
-        <span className="text-cyan-400 font-bold">Ambey Sales Healthcare Services</span>
+        <span className="text-cyan-400 font-bold">M/S AMBEY SALES Healthcare Services</span>
         {latestBooking && (
           <div className="bg-emerald-600 text-white rounded p-1 px-2.5 ml-2 border border-emerald-400 font-sans text-[10px] animate-pulse">
             Active Booking: {latestBooking.id} ({latestBooking.patientName})
@@ -253,7 +253,7 @@ export default function App() {
               </div>
 
               <p className="font-sans text-sm md:text-base text-text-muted leading-relaxed max-w-xl mx-auto lg:mx-0">
-                SRH SWASTH SEVA supports preventive health screening, consultation booking, follow-up care, and specialist consultation coordination. Choose a service and our support team will confirm availability, scope, and next steps.
+                SRH SWASTH SEVA supports preventive health screening, consultation booking, follow-up care, and specialist consultation coordination. SRH SWASTH SEVA is a healthcare service segment operated by M/S AMBEY SALES. Technical platform and product technology support is provided by ReachAIMedTech. M/S AMBEY SALES handles healthcare service enquiries, booking/payment coordination, and healthcare service operations. SRH SWASTH SEVA does not provide technical platform support. Choose a service and our support team will confirm availability, scope, and next steps.
               </p>
 
               {/* Action shortcuts */}
@@ -318,7 +318,7 @@ export default function App() {
                 <Building className="w-5 h-5" />
               </div>
               <div className="space-y-1">
-                <h5 className="font-heading font-black text-[#0B1633] text-sm">Operated by Ambey Sales</h5>
+                <h5 className="font-heading font-black text-[#0B1633] text-sm">Operated by M/S AMBEY SALES</h5>
                 <p className="text-xs text-text-muted leading-relaxed">Trusted healthcare hardware distribution, maintenance & local operations partner.</p>
               </div>
             </div>
@@ -567,7 +567,7 @@ export default function App() {
                 </div>
                 <h4 className="font-heading font-black text-[#0B1633] text-sm mb-2">Clinical Vitals Test</h4>
                 <p className="text-xs text-text-muted font-sans leading-relaxed">
-                  Screen vitals at our interactive kiosks operated by Ambey Sales. Our diagnostic models output medical-grade parameters.
+                  Screen vitals at our interactive kiosks operated by M/S AMBEY SALES. Our diagnostic models output medical-grade parameters.
                 </p>
               </div>
             </div>
@@ -596,7 +596,7 @@ export default function App() {
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight leading-none">Our Health Kiosks</h2>
             <div className="w-12 h-1 bg-primary-teal mx-auto mt-4 rounded-full"></div>
             <p className="text-xs text-text-muted leading-relaxed font-sans max-w-md mx-auto mt-2">
-              Precision vital-signs diagnostic setups Operated & maintained by Ambey Sales. Designed for instant health screenings inside community hubs.
+              Precision vital-signs diagnostic setups Operated & maintained by M/S AMBEY SALES. Designed for instant health screenings inside community hubs.
             </p>
           </div>
 
@@ -937,7 +937,7 @@ export default function App() {
               <div className="space-y-5">
                 <div className="p-5 bg-bg-light border border-[#D7E7EA] rounded-2xl relative">
                   <p className="text-xs text-text-muted italic leading-relaxed font-sans font-medium">
-                    "I took the Vitals + Consultation package at a local camp Operated by Ambey Sales. The vital scanner took my ECG and Blood Pressure within 2 minutes. The video consult doctor on-screen prescribed correct tablets immediately. Exceptional preventative initiative!"
+                    "I took the Vitals + Consultation package at a local camp Operated by M/S AMBEY SALES. The vital scanner took my ECG and Blood Pressure within 2 minutes. The video consult doctor on-screen prescribed correct tablets immediately. Exceptional preventative initiative!"
                   </p>
                   <div className="mt-3 flex justify-between items-center">
                     <span className="text-xs font-bold text-text-navy">Suresh Dwivedi, Noida Patient</span>
@@ -1011,7 +1011,7 @@ export default function App() {
                 <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">SECURE COMMUNICATIONS</span>
                 <h2 className="font-heading font-black text-3xl text-text-navy tracking-tight leading-none">Get in Touch</h2>
                 <p className="text-xs text-text-muted leading-relaxed font-sans font-medium">
-                  Have partnership inquiries or feedback? Our designated help desk Operated by Ambey Sales resolves tickets promptly.
+                  Have partnership inquiries or feedback? Our designated help desk Operated by M/S AMBEY SALES resolves tickets promptly.
                 </p>
               </div>
 
@@ -1022,9 +1022,13 @@ export default function App() {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="space-y-1 text-xs">
-                    <span className="font-bold text-text-navy uppercase tracking-wider text-[10px]">Headquarter Address (Ambey Sales):</span>
+                    <span className="font-bold text-text-navy uppercase tracking-wider text-[10px]">Headquarter Address\nLegal Business Name: M/S AMBEY SALES
+Brand / Healthcare Segment: SRH SWASTH SEVA
+GSTIN: 20BARPS8776D1Z8
+Website: https://srh.ambeysales.com/
+Contact Number: +91 92344 65621 | Technical Platform Support: ReachAIMedTech (Ambey Sales):</span>
                     <p className="text-text-muted leading-relaxed font-sans font-medium">
-                      Ambey Sales Office, 123, Health Avenue, Sector 12, Noida, Uttar Pradesh - 201301 India
+                      Ground Floor, Building No./Flat No. 0, P.O. - Sarjamda, P.S. - Parsudih, Village - Bamangora, Near Salgajhuri Cabin, Parsudih, Jamshedpur, East Singhbhum, Jharkhand - 831002, India
                     </p>
                   </div>
                 </div>
@@ -1036,8 +1040,8 @@ export default function App() {
                   <div className="space-y-1 text-xs">
                     <span className="font-bold text-text-navy uppercase tracking-wider text-[10px]">Calling Helplines:</span>
                     <p className="text-text-muted font-sans font-medium leading-relaxed">
-                      Hotline 1: <a href="tel:+919876543210" className="text-primary-teal font-mono hover:underline font-bold">+91 98765 43210</a><br />
-                      Hotline 2: <a href="tel:+911204567890" className="text-primary-teal font-mono hover:underline font-bold">+91 120 456 7890</a>
+                      Hotline 1: <a href="tel:+919876543210" className="text-primary-teal font-mono hover:underline font-bold">+91 92344 65621</a><br />
+                      Hotline 2: <a href="tel:+911204567890" className="text-primary-teal font-mono hover:underline font-bold">+91 92344 65621</a>
                     </p>
                   </div>
                 </div>
@@ -1156,7 +1160,7 @@ export default function App() {
           {/* Copyright notice blocks */}
           <div className="flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-500 font-mono gap-4 text-center">
             <span>
-              © 2026 SRH SWASTH SEVA. All Rights Reserved. Operated by Ambey Sales.
+              © 2026 SRH SWASTH SEVA. All Rights Reserved. Operated by M/S AMBEY SALES.
             </span>
             <span className="flex items-center gap-1">
               Made with 💙 for preventative community health & accessible digital care.
