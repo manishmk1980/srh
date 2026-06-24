@@ -178,6 +178,7 @@ export default function App() {
             <button onClick={() => scrollToSection('onboarding-timeline')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">How It Works</button>
             <button onClick={() => scrollToSection('certifications-compliance')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Certifications</button>
             <button onClick={() => scrollToSection('faq-block')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">FAQs</button>
+            <button onClick={() => scrollToSection('contact-panel')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Contact</button>
           </nav>
 
           {/* Right Action Trigger CTA */}
@@ -211,7 +212,7 @@ export default function App() {
               <button onClick={() => scrollToSection('onboarding-timeline')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">How It Works</button>
               <button onClick={() => scrollToSection('certifications-compliance')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Certifications</button>
               <button onClick={() => scrollToSection('faq-block')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">FAQs</button>
-              <button onClick={() => scrollToSection('contact-panel')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Contact Support</button>
+              <button onClick={() => scrollToSection('contact-panel')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Contact</button>
             </div>
             
             <button
