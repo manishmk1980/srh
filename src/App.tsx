@@ -148,14 +148,14 @@ export default function App() {
     <div className="min-h-screen bg-bg-light text-text-navy selection:bg-primary-teal selection:text-white" id="srh-main-app-root">
       
       {/* 1. TOP ACCESS PANEL (Alert block about secure booking status) */}
-      <div id="srh-topbar" className="bg-[#072033] text-white py-2 px-6 border-b border-white/5 text-center text-[11px] font-mono tracking-wide font-semibold select-none z-50 relative flex flex-wrap justify-center items-center gap-3">
+      <div id="srh-topbar" className="bg-[#072033] text-white py-2 px-3 sm:px-6 border-b border-white/5 text-center text-[10px] sm:text-[11px] font-mono tracking-wide font-semibold select-none z-50 relative flex flex-nowrap justify-center items-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
         <span className="flex items-center gap-1.5 text-[#FABC09]">
           <ShieldCheck className="w-3.5 h-3.5" /> VERIFIED HEALTHCARE SERVICES
         </span>
         <span className="hidden md:inline text-slate-400">•</span>
-        <span>Secure Service Enquiry Support Available</span>
+        <span className="hidden sm:inline">Secure Service Enquiry Support Available</span>
         <span className="hidden md:inline text-slate-400">•</span>
-        <span className="text-cyan-400 font-bold">M/S AMBEY SALES Healthcare Services</span>
+        <span className="hidden md:inline text-cyan-400 font-bold">M/S AMBEY SALES Healthcare Services</span>
         {latestBooking && (
           <div className="bg-emerald-600 text-white rounded p-1 px-2.5 ml-2 border border-emerald-400 font-sans text-[10px] animate-pulse">
             Active Booking: {latestBooking.id} ({latestBooking.patientName})
@@ -164,8 +164,8 @@ export default function App() {
       </div>
 
       {/* 2. NAVIGATION BAR */}
-      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-[#D7E7EA] min-h-[84px] z-50 transition-all shadow-xs" id="srh-main-nav">
-        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
+      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-[#D7E7EA] min-h-[68px] sm:min-h-[84px] z-50 transition-all shadow-xs" id="srh-main-nav">
+        <div className="max-w-7xl mx-auto h-full px-3 sm:px-6 flex items-center justify-between gap-3">
           
           {/* Logo with clean compact alignment */}
           <Logo variant="compact" size={52} className="cursor-pointer" />
