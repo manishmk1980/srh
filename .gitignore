@@ -21,3 +21,9 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+_backup_*/
+_private_image_source_backup_*/
+
+
+

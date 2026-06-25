@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, ArrowRight, Building, Clock, HeartHandshake, Mail, MapPin, Menu, Phone, ShieldCheck, Stethoscope, Users2, X } from 'lucide-react';
+import { Activity, ArrowRight, Building, Building2, ClipboardPlus, Clock, Cpu, FileText, HeartHandshake, Mail, MapPin, MapPinned, Menu, MonitorSmartphone, Phone, ShieldCheck, Stethoscope, Users2, X } from 'lucide-react';
 
 import Logo from './components/Logo';
 import KioskSimulator from './components/KioskSimulator';
@@ -747,28 +747,58 @@ export default function App() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {[
-              ['Assisted Screening Workflow', 'Structured support for preventive screening and enquiry-led service coordination.'],
-              ['Telemedicine Support Coordination', 'Assisted consultation coordination where service scope and availability permit.'],
-              ['Digital Record Coordination', 'Helps organize screening records and follow-up communication workflows.'],
-              ['B2B Deployment Enquiry Support', 'For clinics, hospitals, NGOs, CSR programs, and channel partners evaluating kiosk deployment.'],
-              ['Community Health Camp Readiness', 'Supports discussion and planning for outreach camps and local screening drives.'],
-              ['Technical Platform Support by ReachAIMedTech', 'Technical platform and product technology support is attributed to ReachAIMedTech.'],
-            ].map(([title, itemText]) => (
-              <div key={title} className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
+              {
+                title: 'Assisted Screening Workflow',
+                description: 'Structured support for preventive screening and enquiry-led service coordination.',
+                badge: 'ENQUIRY-LED',
+                icon: ClipboardPlus,
+              },
+              {
+                title: 'Telemedicine Support Coordination',
+                description: 'Assisted consultation coordination where service scope and availability permit.',
+                badge: 'ENQUIRY-LED',
+                icon: MonitorSmartphone,
+              },
+              {
+                title: 'Digital Record Coordination',
+                description: 'Helps organize screening records and follow-up communication workflows.',
+                badge: 'ENQUIRY-LED',
+                icon: FileText,
+              },
+              {
+                title: 'B2B Deployment Enquiry Support',
+                description: 'For clinics, hospitals, NGOs, CSR programs, and channel partners evaluating kiosk deployment.',
+                badge: 'ENQUIRY-LED',
+                icon: Building2,
+              },
+              {
+                title: 'Community Health Camp Readiness',
+                description: 'Supports discussion and planning for outreach camps and local screening drives.',
+                badge: 'ENQUIRY-LED',
+                icon: MapPinned,
+              },
+              {
+                title: 'Technical Platform Support by ReachAIMedTech',
+                description: 'Technical platform and product technology support is attributed to ReachAIMedTech.',
+                badge: 'ENQUIRY-LED',
+                icon: Cpu,
+              },
+            ].map(({ title, description, badge, icon: Icon }) => (
+              <div key={title} className="group bg-white rounded-2xl border border-[#E5E2DB] p-5 sm:p-6 flex flex-col justify-between items-center text-center shadow-xs min-h-[240px] relative transition-all duration-300 hover:-translate-y-1 hover:border-[#C0AC87]/70 hover:shadow-lg">
                 <div className="absolute top-2.5 right-2.5">
                   <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
                 </div>
-                <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex items-center justify-center text-primary-teal shadow-inner mb-4">
-                  <ShieldCheck className="w-6 h-6" />
+                <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex items-center justify-center text-primary-teal shadow-inner mb-5 transition-colors duration-300 group-hover:bg-[#EDEBDF] group-hover:text-[#314136]" aria-hidden="true">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <div className="space-y-1">
-                  <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">{title}</h4>
-                  <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">{itemText}</p>
+                <div className="space-y-2">
+                  <h4 className="font-heading font-black text-text-navy text-sm sm:text-base leading-tight">{title}</h4>
+                  <p className="text-xs text-text-muted leading-relaxed font-medium font-sans">{description}</p>
                 </div>
-                <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                  ENQUIRY-LED
+                <div className="mt-5 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
+                  {badge}
                 </div>
               </div>
             ))}
