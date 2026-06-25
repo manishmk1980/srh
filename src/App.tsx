@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Activity, ArrowRight, Building, ChevronRight, ClipboardList, Clock, FileText, Globe, Heart, HeartHandshake, HeartPulse, HelpCircle, Mail, MapPin, Menu, MessageSquare, Phone, ShieldAlert, ShieldCheck, Sparkles, Stethoscope, Thermometer, Users2, X } from 'lucide-react';
+import { Activity, ArrowRight, Building, ChevronRight, ClipboardList, Clock, Globe, Heart, HeartHandshake, HeartPulse, HelpCircle, Mail, MapPin, Menu, MessageSquare, Phone, ShieldAlert, ShieldCheck, Sparkles, Stethoscope, Thermometer, Users2, X } from 'lucide-react';
 
 import Logo from './components/Logo';
 import KioskSimulator from './components/KioskSimulator';
-import BookingModal from './components/BookingModal';
 import ServiceInquiryForm from './components/ServiceInquiryForm';
 import HealthScoreCalculator from './components/HealthScoreCalculator';
-import SocialIcon from './components/SocialIcon';
-import { ServiceType, BookingSubmission } from './types';
+import { ServiceType } from './types';
 
 // @ts-ignore
 import vanityModelImg from './assets/images/vanity_model_1782106728077.jpg';
@@ -15,17 +13,10 @@ import vanityModelImg from './assets/images/vanity_model_1782106728077.jpg';
 import linearActuatorImg from './assets/images/linear_actuator_model_1782106748197.jpg';
 
 export default function App() {
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [selectedServiceId, setSelectedServiceId] = useState<ServiceType | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [latestBooking, setLatestBooking] = useState<BookingSubmission | null>(null);
 
-  const handleOpenBooking = (serviceId: ServiceType | null = null) => {
-    if (serviceId) {
-      setSelectedServiceId(serviceId);
-    }
-
+  const handleOpenBooking = (_serviceId: ServiceType | null = null) => {
     const contact = document.getElementById('contact-panel');
     if (contact) {
       contact.scrollIntoView({ behavior: 'smooth' });
@@ -34,10 +25,8 @@ export default function App() {
     setMobileMenuOpen(false);
   };
 
-  const handleBookingComplete = (booking: BookingSubmission) => {
-    setLatestBooking(booking);
-    // Trigger desktop toast notification or show subtle success receipt block
-  };
+  const getContactHref = (model: 'Vanity Model' | 'Linear Actuator Model') =>
+    `/?model=${encodeURIComponent(model)}#contact-panel`;
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -53,7 +42,6 @@ export default function App() {
       id: ServiceType.VITAL_SCREENING,
       title: 'Vital Screening Protocol',
       tagline: 'Elementary Metrics',
-      price: 199,
       duration: '15 Mins duration',
       desc: 'Our essential diagnostic series. Collects core vital signs using medical-grade clinical hardware panels to output immediate results summary.',
       icon: <Activity className="w-6 h-6 text-rose-600" />,
@@ -70,7 +58,6 @@ export default function App() {
       id: ServiceType.VITALS_CONSULTATION,
       title: 'Vitals + Doctor Consultation',
       tagline: 'Highly Recommended',
-      price: 399,
       duration: '30 Mins duration',
       desc: 'Extends vital screening checks with live remote general physician advice. Seamlessly links you to licensed medical experts directly.',
       icon: <Stethoscope className="w-6 h-6 text-[#0E7490]" />,
@@ -88,7 +75,6 @@ export default function App() {
       id: ServiceType.FOLLOW_UP,
       title: 'Follow-up Consultation',
       tagline: 'Continuous Continuity',
-      price: 299,
       duration: '20 Mins duration',
       desc: 'Ensure proper tracking of test outcomes. Discuss secondary reports, lifestyle changes, and progress checkpoints with digital physicians.',
       icon: <Activity className="w-6 h-6 text-emerald-600" />,
@@ -105,7 +91,6 @@ export default function App() {
       id: ServiceType.SPECIALIST,
       title: 'Specialist Consultation',
       tagline: 'In-Depth Diagnostics',
-      price: 599,
       duration: '40 Mins duration',
       desc: 'Direct consultation with seasoned medical specialists (Cardiologists, Diabetologists, General Surgeons) for complex diagnostics analysis.',
       icon: <Users2 className="w-6 h-6 text-[#1D4ED8]" />,
@@ -124,24 +109,47 @@ export default function App() {
   const faqs = [
     {
       q: 'Who operates SRH SWASTH SEVA?',
-      a: 'SRH SWASTH SEVA is a premium preventative assisted-healthcare brand operated and executed in India by M/S AMBEY SALES. We manufacture, deploy, and support advanced digital health kiosks and clinical screening setups.'
+      a: 'SRH SWASTH SEVA is a healthcare service and kiosk deployment segment operated by M/S AMBEY SALES. M/S AMBEY SALES handles healthcare service enquiries, B2B kiosk deployment enquiries, booking/payment coordination, local operations, and distribution-related coordination. Technical platform and product technology support is provided by ReachAIMedTech.'
     },
     {
       q: 'What is the Linear Actuator Model Kiosk?',
       a: 'The Linear Actuator Model is our flagship medical checkup kiosk. It houses automated medical-grade sensors to check high-precision vitals (ECG, blood pressure, blood oxygen, temperature, body weight) and features a high-speed teleconsultation video panel.'
     },
     {
-      q: 'Are the payments secure on this website?',
-      a: 'Service bookings and inquiries are supported through a secure payment-ready workflow. Payment processing will be handled through an approved payment gateway integration as applicable.'
+      q: 'Can clinics, hospitals, NGOs, and CSR teams enquire?',
+      a: 'Yes. SRH SWASTH SEVA supports enquiries from clinics, hospitals, diagnostic centers, NGOs, CSR programs, industrial wellness teams, rural healthcare networks, and channel partners.'
     },
     {
       q: 'Can NGOs and Corporate spaces request kiosk camps?',
-      a: 'Yes! We actively partner with NGOs (rural health outreach), Corporate HR boards (staff wellness screening, onsite occupational health camps), and CSR sponsors to deploy clinical kiosks and portable hand-carried Vanity suitcase models.'
+      a: 'Yes. NGOs, corporate HR teams, CSR sponsors, and industrial wellness teams can discuss screening camps, referral workflows, and telemedicine supported kiosk deployment needs with M/S AMBEY SALES.'
     },
     {
       q: 'How do I download my vital screening reports?',
       a: 'As soon as your assessment session at an Ambey Sales kiosk finishes, you will immediately receive a physical thermal slip print. Additionally, a synchronized digital copy is instantly pushed to your registered mobile number and email ID.'
     }
+  ];
+
+  const solutionCards = [
+    {
+      title: 'Community Health Screening',
+      desc: 'For camps, local health drives, and preventive wellness support.',
+      icon: <HeartPulse className="w-5 h-5" />,
+    },
+    {
+      title: 'Clinic & Hospital Kiosk Deployment',
+      desc: 'For healthcare providers looking to add assisted digital screening and teleconsultation workflows.',
+      icon: <Building className="w-5 h-5" />,
+    },
+    {
+      title: 'CSR / NGO Health Programs',
+      desc: 'For structured outreach, rural screening, and social health initiatives.',
+      icon: <HeartHandshake className="w-5 h-5" />,
+    },
+    {
+      title: 'Industrial & Workforce Wellness',
+      desc: 'For organized employee health screening, periodic camps, and referral coordination.',
+      icon: <Users2 className="w-5 h-5" />,
+    },
   ];
 
   return (
@@ -156,11 +164,6 @@ export default function App() {
         <span className="hidden sm:inline">Secure Service Enquiry Support Available</span>
         <span className="hidden md:inline text-slate-400">•</span>
         <span className="hidden md:inline text-cyan-400 font-bold">M/S AMBEY SALES Healthcare Services</span>
-        {latestBooking && (
-          <div className="bg-emerald-600 text-white rounded p-1 px-2.5 ml-2 border border-emerald-400 font-sans text-[10px] animate-pulse">
-            Active Booking: {latestBooking.id} ({latestBooking.patientName})
-          </div>
-        )}
       </div>
 
       {/* 2. NAVIGATION BAR */}
@@ -176,7 +179,6 @@ export default function App() {
             <button onClick={() => scrollToSection('clinical-plans')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Services</button>
             <button onClick={() => scrollToSection('digital-kiosk')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Technology</button>
             <button onClick={() => scrollToSection('onboarding-timeline')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">How It Works</button>
-            <button onClick={() => scrollToSection('certifications-compliance')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Certifications</button>
             <button onClick={() => scrollToSection('faq-block')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">FAQs</button>
             <button onClick={() => scrollToSection('contact-panel')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Contact</button>
           </nav>
@@ -188,7 +190,7 @@ export default function App() {
               className="px-5 py-2.5 bg-primary-teal hover:bg-[#072033] text-white text-[11px] font-extrabold uppercase tracking-widest rounded-full transition-all duration-200 select-none shadow-md flex items-center gap-2 outline-none focus:ring-2 focus:ring-[#FABC09]"
               id="top-cta-book-service"
             >
-              <Stethoscope className="w-3.5 h-3.5 shrink-0" /> Enquire Health Service
+              <Stethoscope className="w-3.5 h-3.5 shrink-0" /> Enquire Now
             </button>
           </div>
 
@@ -210,7 +212,6 @@ export default function App() {
               <button onClick={() => scrollToSection('clinical-plans')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Services</button>
               <button onClick={() => scrollToSection('digital-kiosk')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Our Health Technology</button>
               <button onClick={() => scrollToSection('onboarding-timeline')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">How It Works</button>
-              <button onClick={() => scrollToSection('certifications-compliance')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Certifications</button>
               <button onClick={() => scrollToSection('faq-block')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">FAQs</button>
               <button onClick={() => scrollToSection('contact-panel')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Contact</button>
             </div>
@@ -219,7 +220,7 @@ export default function App() {
               onClick={() => handleOpenBooking()}
               className="w-full py-3 bg-primary-teal text-white rounded-xl text-xs font-heading font-extrabold text-center uppercase tracking-wider block"
             >
-              Enquire Health Service
+              Enquire Now
             </button>
           </div>
         )}
@@ -249,12 +250,12 @@ export default function App() {
                 </h1>
                 
                 <p className="font-sans font-semibold text-[#0E7490] text-base sm:text-lg tracking-wide max-w-xl mx-auto lg:mx-0">
-                  Vital screening and consultation support through a digital assisted healthcare model. A healthcare brand operated by <span className="font-extrabold underline decoration-2 decoration-[#FABC09] text-text-navy">Ambey Sales</span>.
+                  Preventive healthcare services and telemedicine supported kiosk deployment support for clinics, hospitals, NGOs, CSR programs, industrial wellness teams, and community health initiatives.
                 </p>
               </div>
 
               <p className="font-sans text-sm md:text-base text-text-muted leading-relaxed max-w-xl mx-auto lg:mx-0">
-                SRH SWASTH SEVA supports preventive health screening, consultation booking, follow-up care, and specialist consultation coordination. SRH SWASTH SEVA is a healthcare service segment operated by M/S AMBEY SALES. Technical platform and product technology support is provided by ReachAIMedTech. M/S AMBEY SALES handles healthcare service enquiries, booking/payment coordination, and healthcare service operations. SRH SWASTH SEVA does not provide technical platform support. Choose a service and our support team will confirm availability, scope, and next steps.
+                SRH SWASTH SEVA is a healthcare service and kiosk deployment segment operated by M/S AMBEY SALES. We support community screening initiatives, healthcare service coordination, and B2B deployment/distribution enquiries for telemedicine supported healthcare kiosks. Technical platform and product technology support is provided by ReachAIMedTech.
               </p>
 
               {/* Action shortcuts */}
@@ -263,22 +264,22 @@ export default function App() {
                   onClick={() => handleOpenBooking()}
                   className="w-full sm:w-auto p-4 px-8 bg-primary-teal hover:bg-[#072033] text-white font-heading font-extrabold text-xs tracking-widest uppercase rounded-full transition-all duration-200 select-none shadow-lg flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-[#FABC09]"
                 >
-                  <Stethoscope className="w-4 h-4" /> Enquire This Service
+                  <Stethoscope className="w-4 h-4" /> Enquire for Kiosk / Service
                 </button>
 
                 <button
                   onClick={() => scrollToSection('contact-panel')}
                   className="w-full sm:w-auto p-4 px-8 bg-white border border-[#D7E7EA] hover:border-primary-teal text-text-navy font-heading font-extrabold text-xs tracking-widest uppercase rounded-full transition-all duration-200 select-none shadow-xs flex items-center justify-center gap-2 outline-none"
                 >
-                  <Mail className="w-4 h-4 text-[#0E7490]" /> Partner / Camp Inquiry
+                  <Mail className="w-4 h-4 text-[#0E7490]" /> Plan Health Camp / CSR Program
                 </button>
               </div>
 
               {/* Quick trust counts */}
               <div className="pt-6 border-t border-[#D7E7EA] flex flex-wrap gap-8 justify-center lg:justify-start">
                 <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-black text-text-navy font-mono">4</span>
-                  <span className="text-[10px] uppercase font-bold text-text-light">Bookable Services</span>
+                  <span className="block text-2xl font-black text-text-navy font-mono">B2B</span>
+                  <span className="text-[10px] uppercase font-bold text-text-light">Deployment Enquiries</span>
                 </div>
                 <div className="text-center lg:text-left">
                   <span className="block text-2xl font-black text-text-navy font-mono">Digital</span>
@@ -286,7 +287,7 @@ export default function App() {
                 </div>
                 <div className="text-center lg:text-left">
                   <span className="block text-2xl font-black text-text-navy font-mono">Secure</span>
-                  <span className="text-[10px] uppercase font-bold text-text-light">Payment Support</span>
+                  <span className="text-[10px] uppercase font-bold text-text-light">Coordination Support</span>
                 </div>
               </div>
 
@@ -320,7 +321,7 @@ export default function App() {
               </div>
               <div className="space-y-1">
                 <h5 className="font-heading font-black text-[#0B1633] text-sm">Operated by M/S AMBEY SALES</h5>
-                <p className="text-xs text-text-muted leading-relaxed">Trusted healthcare hardware distribution, maintenance & local operations partner.</p>
+                <p className="text-xs text-text-muted leading-relaxed">Healthcare service, distribution enquiry, and local coordination partner.</p>
               </div>
             </div>
 
@@ -403,7 +404,7 @@ export default function App() {
                   SRH SWASTH SEVA represents a next-generation healthcare initiative committed to early preventative diagnosis. We realize that most complex cardiac, respiratory, and diabetic crises can be safely mitigated if initial vitals indicators are tracked routinely.
                 </p>
                 <p>
-                  Operated in physical hubs by <span className="font-bold text-text-navy">Ambey Sales</span>, we combine clinical diagnostic accuracy with modern IoT hardware to deploy high-fidelity medical screens. Our systems are specifically calibrated to support teleconsultation ready networks, allowing on-site patients to coordinate immediately with remote primary physicians.
+                  Operated as a healthcare service and kiosk deployment segment by <span className="font-bold text-text-navy">M/S AMBEY SALES</span>, SRH SWASTH SEVA supports assisted screening, consultation coordination, and B2B deployment enquiries. Technical platform and product technology support is provided by ReachAIMedTech.
                 </p>
                 <p>
                   Whether you are an individual wanting quick peace of mind checkup, an NGO planning health camps for rural communities, or a corporate HR department coordinating employee medical screening programs, SRH Swasth Seva provides structured trust.
@@ -413,19 +414,19 @@ export default function App() {
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div className="p-4 bg-white rounded-xl border border-[#D7E7EA] flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
-                  <span className="text-xs font-bold text-text-navy">98.6% Medical Calibration</span>
+                  <span className="text-xs font-bold text-text-navy">Assisted Screening Workflow</span>
                 </div>
                 <div className="p-4 bg-white rounded-xl border border-[#D7E7EA] flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
-                  <span className="text-xs font-bold text-text-navy">General Physician Video Sync</span>
+                  <span className="text-xs font-bold text-text-navy">Consultation Coordination</span>
                 </div>
                 <div className="p-4 bg-white rounded-xl border border-[#D7E7EA] flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
-                  <span className="text-xs font-bold text-text-navy">Handheld Camps Portability</span>
+                  <span className="text-xs font-bold text-text-navy">Camp & Clinic Deployment</span>
                 </div>
                 <div className="p-4 bg-white rounded-xl border border-[#D7E7EA] flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
-                  <span className="text-xs font-bold text-text-navy">Secure Cloud-Sinc records</span>
+                  <span className="text-xs font-bold text-text-navy">Digital Record Workflow</span>
                 </div>
               </div>
             </div>
@@ -434,21 +435,33 @@ export default function App() {
         </div>
       </section>
 
-      {/* 6. SERVICES AND PRICING GRID */}
+      {/* 6. SERVICES AND KIOSK DEPLOYMENT GRID */}
       <section className="py-14 sm:py-16 lg:py-20 bg-white border-y border-[#D7E7EA]" id="clinical-plans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-8">
           <div className="space-y-2">
-            <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">AVAILABLE HEALTHCARE SERVICES</span>
+            <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">SOCIAL HEALTHCARE + B2B DEPLOYMENT</span>
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight leading-tight">
-              Healthcare Screening & Consultation Services
+              Healthcare Services & Kiosk Deployment Solutions
             </h2>
-            <p className="text-xs text-text-muted max-w-xl mx-auto font-sans leading-relaxed">
-              Choose from available healthcare services. Our support team will confirm service scope, availability, and next steps.
+            <p className="text-xs text-text-muted max-w-3xl mx-auto font-sans leading-relaxed">
+              SRH SWASTH SEVA works across two connected healthcare needs: preventive screening services for communities and kiosk deployment support for healthcare organizations. Whether you are planning a rural health camp, setting up a clinic-level screening point, exploring a telemedicine supported kiosk for your hospital, or planning CSR/industrial wellness screening, SRH helps you choose the right model and next steps.
             </p>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {solutionCards.map((card) => (
+              <div key={card.title} className="p-5 bg-[#F7FBFC] border border-[#D7E7EA] rounded-2xl text-left shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-[#EEF8FA] border border-[#D7E7EA] text-[#0E7490] flex items-center justify-center mb-4">
+                  {card.icon}
+                </div>
+                <h3 className="font-heading font-black text-text-navy text-sm">{card.title}</h3>
+                <p className="text-xs text-text-muted mt-2 leading-relaxed font-medium">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+
           {/* Services cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
             {servicesList.map((srv) => (
               <div 
                 key={srv.id}
@@ -501,7 +514,7 @@ export default function App() {
 
                 <div className="pt-5 mt-5 border-t border-[#D7E7EA]/50 text-left space-y-4">
                   <p className="text-[12px] text-text-muted leading-relaxed font-medium">
-                    Service availability, scope, and final charges will be confirmed by our support team before booking.
+                    Service scope, deployment fit, and next steps will be confirmed by our support team after enquiry.
                   </p>
 
                   <button
@@ -512,7 +525,7 @@ export default function App() {
                         : 'bg-white border border-slate-300 hover:border-primary-teal text-text-navy'
                     }`}
                   >
-                    Enquire This Service
+                    Request Recommendation
                   </button>
                 </div>
               </div>
@@ -568,7 +581,7 @@ export default function App() {
                 </div>
                 <h4 className="font-heading font-black text-[#0B1633] text-sm mb-2">Clinical Vitals Test</h4>
                 <p className="text-xs text-text-muted font-sans leading-relaxed">
-                  Screen vitals at our interactive kiosks operated by M/S AMBEY SALES. Our diagnostic models output medical-grade parameters.
+                  Screen vitals through assisted kiosk workflows coordinated by M/S AMBEY SALES. The supported models help capture screening parameters.
                 </p>
               </div>
             </div>
@@ -580,7 +593,7 @@ export default function App() {
                 </div>
                 <h4 className="font-heading font-black text-[#0B1633] text-sm mb-2">Get Reports & Advice</h4>
                 <p className="text-xs text-text-muted font-sans leading-relaxed">
-                  Gain instantly printed records with automated expert tips, and attend remote GP consult video sessions if booked.
+                  Receive screening records with service guidance, and discuss consultation coordination where applicable.
                 </p>
               </div>
             </div>
@@ -597,7 +610,7 @@ export default function App() {
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight leading-none">Our Health Kiosks</h2>
             <div className="w-12 h-1 bg-primary-teal mx-auto mt-4 rounded-full"></div>
             <p className="text-xs text-text-muted leading-relaxed font-sans max-w-md mx-auto mt-2">
-              Precision vital-signs diagnostic setups Operated & maintained by M/S AMBEY SALES. Designed for instant health screenings inside community hubs.
+              Telemedicine supported healthcare kiosk options for service coordination, B2B deployment enquiries, and community screening workflows. Technical platform and product technology support is provided by ReachAIMedTech.
             </p>
           </div>
 
@@ -619,7 +632,7 @@ export default function App() {
                   <div>
                     <h3 className="font-heading font-black text-2xl text-text-navy tracking-tight">Vanity Model</h3>
                     <p className="text-xs text-text-muted font-sans mt-1.5 leading-relaxed">
-                      Entry-level solution for small clinics and rural healthcare centers
+                      Entry-level kiosk for small clinics, rural centers, NGO programs, and community screening points.
                     </p>
                   </div>
                   
@@ -656,13 +669,19 @@ export default function App() {
                 </div>
 
                 <div className="pt-4 border-t border-[#E5E2DB]/60 text-left">
-                  <button 
-                    onClick={() => handleOpenBooking()}
+                  <a 
+                    href="/vanity-model"
                     className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#0E7490] hover:text-primary-teal transition-all group/btn"
                   >
-                    <span>View Details</span>
+                    <span>View Deployment Details</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
+                  </a>
+                  <a
+                    href={getContactHref('Vanity Model')}
+                    className="ml-4 inline-flex items-center gap-1.5 text-xs font-extrabold text-text-navy hover:text-primary-teal transition-all"
+                  >
+                    Enquire for Vanity Model
+                  </a>
                 </div>
               </div>
             </div>
@@ -683,7 +702,7 @@ export default function App() {
                   <div>
                     <h3 className="font-heading font-black text-2xl text-text-navy tracking-tight">Linear Actuator Model</h3>
                     <p className="text-xs text-text-muted font-sans mt-1.5 leading-relaxed">
-                      Comprehensive solution for hospitals and multi-specialty clinics
+                      Advanced kiosk for hospitals, multi-specialty clinics, CSR programs, and institutional healthcare networks.
                     </p>
                   </div>
                   
@@ -720,16 +739,19 @@ export default function App() {
                 </div>
 
                 <div className="pt-4 border-t border-[#E5E2DB]/60 text-left">
-                  <button 
-                    onClick={() => {
-                      const el = document.getElementById('digital-kiosk');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
+                  <a 
+                    href="/linear-actuator-model"
                     className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#0E7490] hover:text-primary-teal transition-all group/btn"
                   >
-                    <span>View Details</span>
+                    <span>View Deployment Details</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
+                  </a>
+                  <a
+                    href={getContactHref('Linear Actuator Model')}
+                    className="ml-4 inline-flex items-center gap-1.5 text-xs font-extrabold text-text-navy hover:text-primary-teal transition-all"
+                  >
+                    Enquire for Linear Actuator Model
+                  </a>
                 </div>
               </div>
             </div>
@@ -738,181 +760,50 @@ export default function App() {
         </div>
       </section>
 
-      {/* 9. CERTIFICATIONS & COMPLIANCE SECTION */}
+      {/* 9. TECHNOLOGY READINESS & SERVICE TRANSPARENCY SECTION */}
       <section className="py-14 sm:py-16 lg:py-20 bg-bg-light relative overflow-hidden border-b border-[#E5E2DB] medical-grid-pattern" id="certifications-compliance">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          
           <div className="text-center space-y-3 max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 p-1 px-4 bg-[#EDEBDF] border border-[#E5E2DB] rounded-full text-[10px] font-mono font-extrabold tracking-widest text-[#8A7650]">
-              <span>• TRUST • CERTIFICATIONS • COMPLIANCE •</span>
+              <span>READINESS - TRANSPARENCY - SUPPORT</span>
             </div>
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight">
-              Trusted Healthcare Technology
+              Technology Readiness & Service Transparency
             </h2>
             <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-sans max-w-lg mx-auto">
-              Empowering healthcare delivery through certified technology and secure digital infrastructure.
+              Clear, enquiry-led information for assisted screening workflows, telemedicine support coordination, and B2B kiosk deployment coordination.
             </p>
             <span className="block text-[10px] font-extrabold text-primary-teal tracking-widest uppercase font-mono mt-6">
-              Certifications & Compliance
+              Service Transparency
             </span>
           </div>
 
-          {/* 6 Grid Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-12">
-            
-            {/* 1. CE Certified */}
-            <div className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
-              <div className="absolute top-2.5 right-2.5">
-                <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            {[
+              ['Assisted Screening Workflow', 'Structured support for preventive screening and enquiry-led service coordination.'],
+              ['Telemedicine Support Coordination', 'Assisted consultation coordination where service scope and availability permit.'],
+              ['Digital Record Coordination', 'Helps organize screening records and follow-up communication workflows.'],
+              ['B2B Deployment Enquiry Support', 'For clinics, hospitals, NGOs, CSR programs, and channel partners evaluating kiosk deployment.'],
+              ['Community Health Camp Readiness', 'Supports discussion and planning for outreach camps and local screening drives.'],
+              ['Technical Platform Support by ReachAIMedTech', 'Technical platform and product technology support is attributed to ReachAIMedTech.'],
+            ].map(([title, itemText]) => (
+              <div key={title} className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
+                <div className="absolute top-2.5 right-2.5">
+                  <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
+                </div>
+                <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex items-center justify-center text-primary-teal shadow-inner mb-4">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">{title}</h4>
+                  <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">{itemText}</p>
+                </div>
+                <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
+                  ENQUIRY-LED
+                </div>
               </div>
-              <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex items-center justify-center text-primary-teal font-extrabold text-lg shadow-inner mb-4">
-                CE
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">CE Certified</h4>
-                <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">
-                  International quality standards compliance
-                </p>
-              </div>
-              <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                • EUROPEAN UNION
-              </div>
-            </div>
-
-            {/* 2. CDSCO Compliant */}
-            <div className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
-              <div className="absolute top-2.5 right-2.5">
-                <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
-              </div>
-              <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex flex-col items-center justify-center text-primary-teal font-extrabold text-[8px] leading-tight shadow-inner mb-4">
-                <span className="text-[14px]">🇮🇳</span>
-                <span>CDSCO</span>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">CDSCO Compliant</h4>
-                <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">
-                  Central Drugs Standard Control compliance
-                </p>
-              </div>
-              <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                • INDIA
-              </div>
-            </div>
-
-            {/* 3. FDA Components */}
-            <div className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
-              <div className="absolute top-2.5 right-2.5">
-                <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
-              </div>
-              <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex flex-col items-center justify-center text-primary-teal font-extrabold text-[10px] shadow-inner mb-4">
-                <span className="text-[12px] tracking-tighter">FDA</span>
-                <span className="text-[6px] uppercase font-mono tracking-widest">APPROVED</span>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">FDA Components</h4>
-                <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">
-                  US Food & Drug Administration standards
-                </p>
-              </div>
-              <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                • UNITED STATES
-              </div>
-            </div>
-
-            {/* 4. NABL Accredited */}
-            <div className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
-              <div className="absolute top-2.5 right-2.5">
-                <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
-              </div>
-              <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex flex-col items-center justify-center text-[#8A7650] font-extrabold text-[8px] shadow-inner mb-4">
-                <span className="text-[12px]">★</span>
-                <span>NABL</span>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">NABL Accredited</h4>
-                <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">
-                  ISO / IEC 17025 laboratory accreditation
-                </p>
-              </div>
-              <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                • INDIA
-              </div>
-            </div>
-
-            {/* 5. ABDM Compatible */}
-            <div className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
-              <div className="absolute top-2.5 right-2.5">
-                <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
-              </div>
-              <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex flex-col items-center justify-center text-primary-teal font-extrabold text-[8px] shadow-inner mb-4">
-                <Heart className="w-5 h-5 fill-primary-teal/20" />
-                <span>ABDM</span>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">ABDM Compatible</h4>
-                <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">
-                  Ayushman Bharat Digital Mission integration
-                </p>
-              </div>
-              <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                • INDIA
-              </div>
-            </div>
-
-            {/* 6. ISO 27001 */}
-            <div className="bg-white rounded-2xl border border-[#E5E2DB] p-5 flex flex-col justify-between items-center text-center shadow-xs min-h-[220px] relative hover:shadow-md transition-shadow">
-              <div className="absolute top-2.5 right-2.5">
-                <span className="w-2 h-2 rounded-full bg-primary-teal flex animate-pulse-slow"></span>
-              </div>
-              <div className="w-16 h-16 rounded-full bg-bg-light border border-[#E5E2DB] flex-col flex items-center justify-center text-primary-teal font-extrabold text-[9px] shadow-inner mb-4">
-                <span className="text-[11px] font-mono leading-none">ISO</span>
-                <span className="font-mono text-[7px]">27001</span>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-heading font-black text-text-navy text-xs sm:text-sm">ISO 27001</h4>
-                <p className="text-[10px] text-text-muted leading-snug font-medium font-sans">
-                  Information security management system certified
-                </p>
-              </div>
-              <div className="mt-4 p-1 px-2.5 bg-[#EDEBDF] rounded-md text-[8px] font-extrabold text-primary-teal tracking-wider font-mono">
-                • INTERNATIONAL
-              </div>
-            </div>
-
+            ))}
           </div>
-
-          {/* Bottom Stats horizontal bar strip  */}
-          <div className="bg-white border border-[#E5E2DB] rounded-3xl p-6 shadow-xs max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4 divide-y md:divide-y-0 md:divide-x divide-[#E5E2DB] text-center">
-              
-              <div className="pt-4 md:pt-0">
-                <span className="block text-2xl font-black text-text-navy font-mono">6+</span>
-                <span className="text-[10px] uppercase font-bold text-text-light font-sans tracking-wide">Active Certifications</span>
-              </div>
-
-              <div className="pt-4 md:pt-0 pl-1">
-                <span className="block text-2xl font-black text-[#8A7650] font-mono">Secure</span>
-                <span className="text-[10px] uppercase font-bold text-text-light font-sans tracking-wide">ABDM Compatible</span>
-              </div>
-
-              <div className="pt-4 md:pt-0 pl-1">
-                <span className="block text-2xl font-black text-text-navy font-mono">ISO</span>
-                <span className="text-[10px] uppercase font-bold text-text-light font-sans tracking-wide">27001 Infrastructure</span>
-              </div>
-
-              <div className="pt-4 md:pt-0 pl-1">
-                <span className="block text-2xl font-black text-primary-teal font-mono">NABL</span>
-                <span className="text-[10px] uppercase font-bold text-text-light font-sans tracking-wide">Accredited Labs</span>
-              </div>
-
-              <div className="pt-4 md:pt-0 pl-1">
-                <span className="block text-2xl font-black text-text-navy font-mono">99.9%</span>
-                <span className="text-[10px] uppercase font-bold text-text-light font-sans tracking-wide">Uptime SLA</span>
-              </div>
-
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -926,33 +817,33 @@ export default function App() {
               <HealthScoreCalculator onSelectRecommendedService={(serviceId) => handleOpenBooking(serviceId)} />
             </div>
 
-            {/* Right Column: Key patient testimonials validation */}
+            {/* Right Column: Neutral service transparency content */}
             <div className="lg:col-span-6 space-y-6">
               <div className="space-y-3">
-                <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">PATIENT ADVOCACY & VALIDATION</span>
+                <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">SERVICE TRANSPARENCY</span>
                 <h3 className="font-heading font-black text-2xl sm:text-3xl text-text-navy tracking-tight leading-tight">
-                  Trusted by 10,000+ Indians
+                  Enquiry-led screening and deployment guidance
                 </h3>
               </div>
 
               <div className="space-y-5">
                 <div className="p-5 bg-bg-light border border-[#D7E7EA] rounded-2xl relative">
-                  <p className="text-xs text-text-muted italic leading-relaxed font-sans font-medium">
-                    "I took the Vitals + Consultation package at a local camp Operated by M/S AMBEY SALES. The vital scanner took my ECG and Blood Pressure within 2 minutes. The video consult doctor on-screen prescribed correct tablets immediately. Exceptional preventative initiative!"
+                  <p className="text-xs text-text-muted leading-relaxed font-sans font-medium">
+                    SRH SWASTH SEVA supports preventive screening, consultation coordination, and B2B kiosk deployment enquiries. Service scope, model fit, and next steps are confirmed after enquiry review by the M/S AMBEY SALES coordination team.
                   </p>
-                  <div className="mt-3 flex justify-between items-center">
-                    <span className="text-xs font-bold text-text-navy">Suresh Dwivedi, Noida Patient</span>
-                    <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded font-mono">VERIFIED CHECKUP</span>
+                  <div className="mt-3 flex justify-between items-center gap-3">
+                    <span className="text-xs font-bold text-text-navy">Community and B2B readiness</span>
+                    <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded font-mono">ENQUIRY FIRST</span>
                   </div>
                 </div>
 
                 <div className="p-5 bg-bg-light border border-[#D7E7EA] rounded-2xl relative">
-                  <p className="text-xs text-text-muted italic leading-relaxed font-sans font-medium">
-                    "Setting up the CSR Campaign camp with the SRH Vanity Suitcase models was seamless. The diagnostic accuracy is perfect, and our rural villagers received immediate physical health summary prints. Incredible technological service!"
+                  <p className="text-xs text-text-muted leading-relaxed font-sans font-medium">
+                    Technical platform and product technology support is provided by ReachAIMedTech. M/S AMBEY SALES handles healthcare service enquiries, local coordination, booking/payment coordination, and distribution-related coordination.
                   </p>
-                  <div className="mt-3 flex justify-between items-center">
-                    <span className="text-xs font-bold text-text-navy">Arpit Saxena, NGO Operations Executive</span>
-                    <span className="text-[10px] text-teal-600 font-bold bg-teal-50 px-2 py-0.5 rounded font-mono">B2B COOP</span>
+                  <div className="mt-3 flex justify-between items-center gap-3">
+                    <span className="text-xs font-bold text-text-navy">Clear responsibility split</span>
+                    <span className="text-[10px] text-teal-600 font-bold bg-teal-50 px-2 py-0.5 rounded font-mono">TRANSPARENT</span>
                   </div>
                 </div>
               </div>
@@ -969,7 +860,7 @@ export default function App() {
             <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">RESOLVING YOUR INQUIRIES</span>
             <h2 className="font-heading font-black text-3xl text-text-navy tracking-tight">Frequently Asked Questions</h2>
             <p className="text-xs text-text-muted font-sans font-medium">
-              Find instant, straightforward clarifications on our hardware calibrations, secure gateway payment setups, and Ambey Sales contracts.
+              Find straightforward clarifications on service coordination, kiosk deployment enquiries, community programs, and Ambey Sales support workflows.
             </p>
           </div>
 
@@ -1012,7 +903,7 @@ export default function App() {
                 <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">SECURE COMMUNICATIONS</span>
                 <h2 className="font-heading font-black text-3xl text-text-navy tracking-tight leading-none">Get in Touch</h2>
                 <p className="text-xs text-text-muted leading-relaxed font-sans font-medium">
-                  Have partnership inquiries or feedback? Our designated help desk Operated by M/S AMBEY SALES resolves tickets promptly.
+                  Send service, deployment, partnership, CSR, clinic, hospital, NGO, distributor, or screening enquiries to the M/S AMBEY SALES coordination team.
                 </p>
               </div>
 
@@ -1022,12 +913,16 @@ export default function App() {
                   <div className="p-2.5 bg-[#EEF8FA] text-[#0E7490] rounded-xl shrink-0 mt-0.5 border border-[#D7E7EA]">
                     <MapPin className="w-5 h-5" />
                   </div>
-                  <div className="space-y-1 text-xs">
-                    <span className="font-bold text-text-navy uppercase tracking-wider text-[10px]">Headquarter Address\nLegal Business Name: M/S AMBEY SALES
-Brand / Healthcare Segment: SRH SWASTH SEVA
-GSTIN: 20BARPS8776D1Z8
-Website: https://srh.ambeysales.com/
-Contact Number: +91 92344 65621 | Technical Platform Support: ReachAIMedTech (Ambey Sales):</span>
+                  <div className="space-y-2 text-xs">
+                    <span className="font-bold text-text-navy uppercase tracking-wider text-[10px]">Headquarter Address</span>
+                    <div className="grid grid-cols-1 gap-1 text-text-muted font-sans font-medium">
+                      <p><span className="font-bold text-text-navy">Legal Business Name:</span> M/S AMBEY SALES</p>
+                      <p><span className="font-bold text-text-navy">Brand / Healthcare Segment:</span> SRH SWASTH SEVA</p>
+                      <p><span className="font-bold text-text-navy">GSTIN:</span> 20BARPS8776D1Z8</p>
+                      <p><span className="font-bold text-text-navy">Website:</span> https://srh.ambeysales.com/</p>
+                      <p><span className="font-bold text-text-navy">Contact Number:</span> +91 92344 65621</p>
+                      <p><span className="font-bold text-text-navy">Technical Platform Support:</span> ReachAIMedTech</p>
+                    </div>
                     <p className="text-text-muted leading-relaxed font-sans font-medium">
                       Ground Floor, Building No./Flat No. 0, P.O. - Sarjamda, P.S. - Parsudih, Village - Bamangora, Near Salgajhuri Cabin, Parsudih, Jamshedpur, East Singhbhum, Jharkhand - 831002, India
                     </p>
@@ -1054,7 +949,7 @@ Contact Number: +91 92344 65621 | Technical Platform Support: ReachAIMedTech (Am
                   <div className="space-y-1 text-xs">
                     <span className="font-bold text-text-navy uppercase tracking-wider text-[10px]">Official Support Emails:</span>
                     <p className="text-text-muted font-sans font-medium leading-relaxed">
-                      Primary contact: <a href="mailto:support@srhswasthseva.com" className="text-primary-teal font-mono hover:underline font-bold">support@srhswasthseva.com</a><br />
+                      Temporary enquiry email: <a href="mailto:contactmanishm@gmail.com" className="text-primary-teal font-mono hover:underline font-bold">contactmanishm@gmail.com</a><br />
                       Corporate hub: <a href="mailto:info@srhswasthseva.com" className="text-primary-teal font-mono hover:underline font-bold">info@srhswasthseva.com</a>
                     </p>
                   </div>
@@ -1077,7 +972,7 @@ Contact Number: +91 92344 65621 | Technical Platform Support: ReachAIMedTech (Am
 
               {/* Safety banner */}
               <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-[11px] text-emerald-800 font-sans leading-relaxed font-semibold">
-                Your health information and service details are handled with care for booking, consultation coordination, service support, and service assistance.
+                This form is for service, deployment, partnership, and screening enquiry coordination only. For emergencies, contact emergency medical services or visit the nearest hospital.
               </div>
             </div>
 
@@ -1090,94 +985,13 @@ Contact Number: +91 92344 65621 | Technical Platform Support: ReachAIMedTech (Am
                 <h4 className="font-heading font-black text-[#0B1633] text-lg">Send Service Enquiry</h4>
               </div>
 
-              {/* Import form handler capturing inputs into LocalStorage registries */}
+              {/* Import form handler for enquiry submissions */}
               <ServiceInquiryForm />
             </div>
 
           </div>
         </div>
       </section>
-
-      {/* 13. ULTIMATE ACCESSIBLE FOOTER */}
-      <footer className="bg-[#072033] text-white pt-16 pb-8" id="srh-ultimate-footer">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
-          
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            
-            {/* Side 1: Logo & summary */}
-            <div className="md:col-span-5 space-y-4">
-              <Logo variant="light-text" size={68} />
-              
-              <p className="text-xs text-slate-400 font-sans leading-relaxed max-w-sm font-medium">
-                SRH SWASTH SEVA is a preventive healthcare screening and consultation support service brand operated by <span className="text-white font-semibold">Ambey Sales</span>. We support vital screening, consultation coordination, follow-up care, and specialist consultation booking.
-              </p>
-              
-              <span className="block text-slate-500 text-[10px] font-mono">
-                OPERATED BY AMBEY SALES
-              </span>
-            </div>
-
-            {/* Side 2: Live Policy lists - Fully satisfying strict medical compliance rules */}
-            <div className="md:col-span-4 space-y-3">
-              <h5 className="font-heading font-black text-xs text-[#FABC09] uppercase tracking-wider">Policies & Legal Terms</h5>
-              <div className="grid grid-cols-1 gap-2 text-xs font-sans text-slate-300 font-medium whitespace-nowrap">
-                <a href={`${import.meta.env.BASE_URL}privacy-policy`} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5 focus:text-white">
-                  <FileText className="w-3.5 h-3.5 text-[#FABC09]" /> Privacy Policy Agreement
-                </a>
-                <a href={`${import.meta.env.BASE_URL}terms-service-conditions`} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5 focus:text-white">
-                  <FileText className="w-3.5 h-3.5 text-[#FABC09]" /> Terms & Service Conditions
-                </a>
-                <a href={`${import.meta.env.BASE_URL}cancellation-refund-policy`} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5 focus:text-white">
-                  <FileText className="w-3.5 h-3.5 text-[#FABC09]" /> Cancellation & Refund Policy
-                </a>
-                <a href={`${import.meta.env.BASE_URL}shipping-delivery-policy`} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5 focus:text-white">
-                  <FileText className="w-3.5 h-3.5 text-[#FABC09]" /> Shipping & Delivery Policy
-                </a>
-                <a href={`${import.meta.env.BASE_URL}medical-diagnostic-disclaimer`} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5 focus:text-white">
-                  <FileText className="w-3.5 h-3.5 text-[#FABC09]" /> Medical & Diagnostic Disclaimer
-                </a>
-              </div>
-            </div>
-
-            {/* Side 3: Social follow widgets */}
-            <div className="md:col-span-3 space-y-3">
-              <h5 className="font-heading font-black text-xs text-[#FABC09] uppercase tracking-wider">Follow SRH SWASTH SEVA</h5>
-              <p className="text-[11px] text-slate-400 leading-relaxed font-sans font-medium">
-                Stay updated on preventive healthcare services, screening support, and community health initiatives.
-              </p>
-              
-              <div className="flex gap-3 text-xs">
-                <a href="#facebook" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="Facebook"><SocialIcon name="facebook" className="w-4 h-4" /><span className="sr-only">Facebook</span></a>
-                <a href="#instagram" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="Instagram"><SocialIcon name="instagram" className="w-4 h-4" /><span className="sr-only">Instagram</span></a>
-                <a href="#linkedin" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="LinkedIn"><SocialIcon name="linkedin" className="w-4 h-4" /><span className="sr-only">LinkedIn</span></a>
-                <a href="#youtube" className="p-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/10 hover:border-[#FABC09] text-slate-300 hover:text-white" aria-label="YouTube"><SocialIcon name="youtube" className="w-4 h-4" /><span className="sr-only">YouTube</span></a>
-              </div>
-            </div>
-
-          </div>
-
-          <hr className="border-white/10" />
-
-          {/* Copyright notice blocks */}
-          <div className="flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-500 font-mono gap-4 text-center">
-            <span>
-              © 2026 SRH SWASTH SEVA. All Rights Reserved. Operated by M/S AMBEY SALES.
-            </span>
-            <span className="flex items-center gap-1">
-              Made with 💙 for preventative community health & accessible digital care.
-            </span>
-          </div>
-
-        </div>
-      </footer>
-
-      {/* 14. APPOINTMENT BOOKING PROCESS MODAL (PREMIUM SANDBOX TRANSITION GATEWAY) */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        selectedServiceId={selectedServiceId}
-        onBookingComplete={handleBookingComplete}
-      />
 
     </div>
   );

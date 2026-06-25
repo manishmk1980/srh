@@ -28,7 +28,7 @@ type PolicyPageData = {
   sections: PolicySection[];
 };
 
-const CONTACT_EMAIL = 'support@srhswasthseva.com';
+const CONTACT_EMAIL = 'contactmanishm@gmail.com';
 const CONTACT_PHONE = '+91 92344 65621';
 
 export function getLegalPageSlug(): LegalSlug | null {
@@ -56,27 +56,27 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
   'privacy-policy': {
     title: 'Privacy Policy Agreement',
     subtitle:
-      'How SRH SWASTH SEVA collects, uses, protects, and manages user information for healthcare service booking and consultation support.',
+      'How SRH SWASTH SEVA collects, uses, protects, and manages user information for healthcare service, screening, partnership, and kiosk deployment enquiry coordination.',
     effectiveDate: 'Effective from: 22 June 2026',
     sections: [
       {
         heading: '1. Introduction',
         body: [
-          'SRH SWASTH SEVA is a healthcare service brand operated by M/S AMBEY SALES. This Privacy Policy explains how we collect, use, store, and protect information shared by users while booking vital screening, consultation support, follow-up consultation, specialist consultation, or contacting our support team.',
+          'SRH SWASTH SEVA is a healthcare service and kiosk deployment segment operated by M/S AMBEY SALES. This Privacy Policy explains how we collect, use, store, and protect information shared by users while submitting service, screening, partnership, CSR, NGO, clinic, hospital, distributor, or B2B kiosk deployment enquiries.',
           'By using this website or submitting a service inquiry, you agree to the practices described in this Privacy Policy.',
         ],
       },
       {
         heading: '2. Information We May Collect',
         body: [
-          'We may collect personal details such as name, mobile number, email address, organization name, service interest, message details, appointment preference, and basic information required to coordinate healthcare screening or consultation support.',
-          'Where applicable, users may voluntarily share basic health-related information only for service coordination, consultation booking, screening support, or follow-up communication.',
+          'We may collect personal details such as name, mobile number, email address, organization name, organization type, requirement type, model of interest, deployment location, message details, and basic information required to coordinate healthcare screening, partnership, or kiosk deployment enquiries.',
+          'Where applicable, users may voluntarily share basic health-related information only for service coordination, screening support, or follow-up communication. Users should not submit emergency medical details or sensitive reports through open form fields.',
         ],
       },
       {
         heading: '3. Purpose of Collection',
         body: [
-          'Information is collected to process service inquiries, coordinate bookings, provide support, confirm payments, manage consultation requests, share service updates, and respond to refund or cancellation-related queries.',
+          'Information is collected to process service enquiries, B2B kiosk distribution/deployment enquiries, local coordination requests, partnership discussions, healthcare workflow planning, support follow-up, and operational communication.',
           'We may also use submitted details to improve service quality, maintain internal records, prevent misuse, and comply with applicable legal or operational requirements.',
         ],
       },
@@ -84,7 +84,7 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
         heading: '4. Payment Information',
         body: [
           'Payments may be processed through approved third-party payment gateway providers. SRH SWASTH SEVA does not store complete card numbers, UPI PINs, net banking passwords, or sensitive payment credentials on this website.',
-          'Payment status, transaction reference, service selection, and booking confirmation details may be retained for accounting, support, and refund processing purposes.',
+          'Where payment coordination becomes applicable later, payment status, transaction reference, service selection, and confirmation details may be retained for accounting, support, and refund processing purposes.',
         ],
       },
       {
@@ -97,20 +97,20 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
       {
         heading: '6. Data Security',
         body: [
-          'We follow reasonable technical and organizational safeguards to protect user information against unauthorized access, misuse, loss, or alteration.',
+          'We follow appropriate technical and organizational safeguards to protect user information against unauthorized access, misuse, loss, or alteration.',
           'However, no internet-based system can be guaranteed to be completely secure. Users should avoid sharing highly sensitive medical or financial information through open text fields unless required for service coordination.',
         ],
       },
       {
         heading: '7. Data Retention',
         body: [
-          'We may retain service inquiries, booking details, support communication, payment references, and related records for as long as required for service delivery, legal compliance, accounting, dispute resolution, or operational record-keeping.',
+          'We may retain service enquiries, B2B kiosk deployment enquiries, support communication, payment references where applicable, and related records for as long as required for service delivery, legal compliance, accounting, dispute resolution, or operational record-keeping.',
         ],
       },
       {
         heading: '8. User Rights',
         body: [
-          'Users may contact us to request correction, update, or reasonable deletion of their personal information, subject to service, legal, accounting, or compliance requirements.',
+          'Users may contact us to request correction, update, or appropriate deletion of their personal information, subject to service, legal, accounting, or compliance requirements.',
           `For privacy-related requests, contact us at ${CONTACT_EMAIL}.`,
         ],
       },
@@ -126,41 +126,42 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
   'terms-service-conditions': {
     title: 'Terms & Service Conditions',
     subtitle:
-      'Terms governing the use of SRH SWASTH SEVA website, service booking, healthcare screening, and consultation support.',
+      'Terms governing the use of SRH SWASTH SEVA website, healthcare screening, service enquiries, and B2B kiosk deployment coordination.',
     effectiveDate: 'Effective from: 22 June 2026',
     sections: [
       {
         heading: '1. Acceptance of Terms',
         body: [
-          'By accessing this website, submitting an inquiry, booking a healthcare service, or making a payment, you agree to these Terms & Service Conditions.',
-          'SRH SWASTH SEVA is a healthcare service brand operated by M/S AMBEY SALES.',
+          'By accessing this website or submitting a service, screening, partnership, or kiosk deployment enquiry, you agree to these Terms & Service Conditions.',
+          'SRH SWASTH SEVA is a healthcare service and kiosk deployment segment operated by M/S AMBEY SALES.',
         ],
       },
       {
         heading: '2. Services Offered',
         body: [
-          'SRH SWASTH SEVA provides vital screening, vitals-based consultation, follow-up consultation, and specialist consultation support through a digital and assisted healthcare service model.',
-          'Service availability, pricing, consultation type, location, and delivery mode may vary based on operational feasibility, healthcare professional availability, and service scope.',
+          'SRH SWASTH SEVA supports preventive healthcare services, community screening initiatives, healthcare service coordination, and B2B telemedicine kiosk deployment/distribution enquiries.',
+          'M/S AMBEY SALES handles healthcare service enquiries, B2B kiosk deployment enquiries, booking/payment coordination, local operations, and distribution-related coordination. Technical platform and product technology support is provided by ReachAIMedTech.',
+          'Service availability, consultation type, location, commercial scope, and delivery mode may vary based on operational feasibility, healthcare professional availability, and service scope.',
         ],
       },
       {
         heading: '3. User Responsibility',
         body: [
-          'Users must provide accurate personal, contact, booking, and health-related information wherever required for service coordination.',
+          'Users must provide accurate personal, contact, organization, deployment, and health-related information wherever required for service or deployment enquiry coordination.',
           'Users should not submit false, misleading, abusive, unlawful, or irrelevant information through website forms or support channels.',
         ],
       },
       {
-        heading: '4. Booking and Payment',
+        heading: '4. Enquiry, Booking and Payment Coordination',
         body: [
-          'Users may book available healthcare services and make payments through the website or approved payment channels.',
-          'A booking is considered received only after successful submission of required information and, where applicable, successful payment confirmation.',
+          'Users may submit enquiries for healthcare services, screening programs, partnerships, or kiosk deployment/distribution coordination through the website or approved channels.',
+          'Booking/payment coordination, if applicable, will be discussed after the support team reviews the submitted requirement.',
         ],
       },
       {
         heading: '5. Service Delivery',
         body: [
-          'Service delivery may include assisted screening, consultation coordination, digital communication, appointment confirmation, follow-up support, or report-sharing where applicable.',
+          'Service or deployment coordination may include assisted screening, consultation coordination, digital communication, appointment confirmation, model selection discussion, local coordination, follow-up support, or report-sharing where applicable.',
           'Timelines may vary depending on selected service, user availability, location, healthcare professional availability, or operational constraints.',
         ],
       },
@@ -172,10 +173,10 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
         ],
       },
       {
-        heading: '7. Pricing and Changes',
+        heading: '7. Commercial Details and Changes',
         body: [
-          'Prices shown on the website may be starting prices or service-specific charges. Final pricing may depend on service type, specialist category, location, and selected package.',
-          'SRH SWASTH SEVA may update service details, pricing, features, or availability from time to time.',
+          'Commercial details are confirmed only after the user contacts SRH SWASTH SEVA and the support team reviews service type, model interest, location, service scope, deployment need, and operational requirements.',
+          'SRH SWASTH SEVA may update service details, features, or availability from time to time.',
         ],
       },
       {
@@ -187,7 +188,7 @@ const policyPages: Record<LegalSlug, PolicyPageData> = {
       {
         heading: '9. Contact',
         body: [
-          `For service, booking, or payment-related support, contact ${CONTACT_EMAIL} or ${CONTACT_PHONE}.`,
+          `For service, deployment, partnership, booking, or payment-related coordination, contact ${CONTACT_EMAIL} or ${CONTACT_PHONE}.`,
         ],
       },
     ],

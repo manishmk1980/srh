@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, ShieldAlert, Award, ArrowRight, HeartPulse, HelpCircle } from 'lucide-react';
+import { ArrowRight, HeartPulse } from 'lucide-react';
 import { ServiceType } from '../types';
 
 interface ScoreCalculatorProps {
@@ -30,13 +30,11 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
     let recommendation: {
       packageId: ServiceType;
       packageName: string;
-      price: number;
       priority: 'Routine Check' | 'High Attention' | 'Preventative Action';
       desc: string;
     } = {
       packageId: ServiceType.VITAL_SCREENING,
       packageName: 'Vital Screening',
-      price: 199,
       priority: 'Routine Check',
       desc: 'You have low active symptom markers. We recommend a simple baseline vital check to capture your healthy trends.'
     };
@@ -45,7 +43,6 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
       recommendation = {
         packageId: ServiceType.SPECIALIST,
         packageName: 'Specialist Consultation',
-        price: 599,
         priority: 'High Attention',
         desc: 'Vitals require thorough evaluation. A digital diagnostic review with an expert specialist physician is highly recommended.'
       };
@@ -53,7 +50,6 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
       recommendation = {
         packageId: ServiceType.VITALS_CONSULTATION,
         packageName: 'Vitals + Consultation',
-        price: 399,
         priority: 'Preventative Action',
         desc: 'Based on your indications, we recommend a secondary general consultation package to assess and guide your healthcare routine.'
       };
@@ -69,14 +65,14 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
       <div>
         <div className="flex items-center gap-2 mb-4">
           <HeartPulse className="w-5 h-5 text-primary-teal" />
-          <span className="text-xs text-[#0e7490] font-bold uppercase tracking-widest font-mono">Dynamic Diagnostic Estimator</span>
+          <span className="text-xs text-[#0e7490] font-bold uppercase tracking-widest font-mono">Screening Guidance Estimator</span>
         </div>
 
         <h4 className="font-heading font-extrabold text-[#0B1633] text-xl tracking-tight mb-2">
-          Preventative Screening Self-Checkup
+          Screening Requirement Helper
         </h4>
         <p className="text-xs text-text-muted mb-6">
-          Answer a few quick questions to identify if your current metrics require immediate checkup screening and doctor video consultations.
+          Answer a few quick questions to identify whether you may need screening support or consultation coordination.
         </p>
 
         {currentStep <= 3 && (
@@ -139,7 +135,7 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
         {currentStep === 2 && (
           <div className="space-y-4" id="calc-step-2">
             <p className="text-xs font-bold text-text-navy uppercase tracking-wider">
-              2. Who is this clinical checkup program intended for?
+              2. Who is this screening or service enquiry intended for?
             </p>
             <div className="grid grid-cols-2 gap-2">
               <button
@@ -247,7 +243,7 @@ export default function HealthScoreCalculator({ onSelectRecommendedService }: Sc
                 onClick={() => onSelectRecommendedService(result.packageId)}
                 className="flex-1 p-2.5 bg-primary-teal hover:bg-primary-teal/90 text-white text-[11px] font-extrabold rounded-full flex items-center justify-center gap-1.5 transition-all shadow-md"
               >
-                Book Package Screen Now <ArrowRight className="w-3.5 h-3.5" />
+                Contact for Details <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>

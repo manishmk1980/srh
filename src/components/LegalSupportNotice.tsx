@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react';
+﻿import React from 'react';
 
 const MAP_URL = 'https://www.google.com/maps?q=22.758472,86.226361';
 const MAP_EMBED_URL = 'https://maps.google.com/maps?q=22.758472,86.226361&z=16&output=embed';
@@ -37,34 +37,6 @@ function WhatsAppIcon() {
 
 export default function LegalSupportNotice() {
   const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(`${LOCATION_TEXT}\n${MAP_URL}`)}`;
-
-  useEffect(() => {
-    // Hide the old copyright strip from the main footer so copyright appears only at the final bottom.
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const matches: Text[] = [];
-
-    while (walker.nextNode()) {
-      const node = walker.currentNode as Text;
-      if (
-        node.nodeValue?.includes('© 2026 SRH SWASTH SEVA') ||
-        node.nodeValue?.includes('Made with')
-      ) {
-        matches.push(node);
-      }
-    }
-
-    matches.forEach((node) => {
-      let el = node.parentElement;
-      for (let i = 0; i < 7 && el; i += 1) {
-        const text = el.textContent || '';
-        if (text.includes('© 2026 SRH SWASTH SEVA') && text.includes('Made with')) {
-          el.style.display = 'none';
-          break;
-        }
-        el = el.parentElement;
-      }
-    });
-  }, []);
 
   const shareLocation = async () => {
     const shareData = {
@@ -166,9 +138,10 @@ export default function LegalSupportNotice() {
             </p>
 
             <p className="text-sm sm:text-base leading-7 text-white/85">
-              SRH SWASTH SEVA is a healthcare service segment operated by
+              SRH SWASTH SEVA is a healthcare service and kiosk deployment segment operated by
               <strong className="text-white"> M/S AMBEY SALES</strong>. M/S AMBEY SALES handles
-              healthcare service enquiries, booking/payment coordination, and healthcare service operations.
+              healthcare service enquiries, B2B kiosk deployment enquiries, booking/payment coordination,
+              local operations, and distribution-related coordination.
             </p>
 
             <p className="text-sm sm:text-base leading-7 text-white/85 mt-3">
