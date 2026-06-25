@@ -1,64 +1,103 @@
-import { readdir, mkdir } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import sharp from 'sharp';
+﻿import sharp from "sharp";
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, '..');
-const imagesDir = path.join(projectRoot, 'public', 'images');
-const sourceDir = path.join(imagesDir, 'source');
-const supportedExtensions = new Set(['.jpg', '.jpeg', '.png']);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, "..");
 
-const seoFileNames = new Map([
-  ['clinicandhospital', 'clinic-hospital-kiosk-deployment-jharkhand-srh-swasth-seva.webp'],
-  ['community-health-screening', 'community-health-screening-jharkhand-srh-swasth-seva.webp'],
-  ['csr-ngo-healthprogram', 'csr-ngo-health-programs-jharkhand-srh-swasth-seva.webp'],
-  ['industrialandworkforce', 'industrial-workforce-wellness-jharkhand-srh-swasth-seva.webp'],
-  ['srh-logo', 'srh-swasth-seva-logo.webp'],
-]);
+const imagesDir = path.join(projectRoot, "public", "images");
+const validExt = new Set([".jpg", ".jpeg", ".png"]);
 
-async function getImageFiles(directory) {
-  const files = await readdir(directory, { withFileTypes: true });
-  return files
-    .filter((file) => {
-      const extension = path.extname(file.name).toLowerCase();
-      return file.isFile() && supportedExtensions.has(extension);
-    })
-    .map((file) => ({
-      name: file.name,
-      inputPath: path.join(directory, file.name),
-    }));
+async function exists(p) {
+  try {
+    await fs.access(p);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
-async function convertImages() {
-  await mkdir(sourceDir, { recursive: true });
+async function walk(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const files = [];
 
-  const imageFiles = [
-    ...(await getImageFiles(sourceDir)),
-    ...(await getImageFiles(imagesDir)),
-  ];
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
 
-  if (imageFiles.length === 0) {
-    console.log('No jpg, jpeg, or png images found to convert.');
+    // Never process or create public/images/source
+    if (entry.isDirectory()) {
+      if (entry.name.toLowerCase() === "source") continue;
+      files.push(...await walk(fullPath));
+      continue;
+    }
+
+    if (!entry.isFile()) continue;
+
+    const ext = path.extname(entry.name).toLowerCase();
+    if (validExt.has(ext)) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
+async function main() {
+  if (!await exists(imagesDir)) {
+    console.log("public/images folder not found. Nothing to optimize.");
     return;
   }
 
-  for (const file of imageFiles) {
-    const extension = path.extname(file.name).toLowerCase();
-    const baseName = path.basename(file.name, extension);
-    const outputName = seoFileNames.get(baseName) ?? `${baseName.toLowerCase().replaceAll(/\s+/g, '-')}.webp`;
-    const outputPath = path.join(imagesDir, outputName);
+  // Safety cleanup: remove empty public/images/source if any old script created it.
+  const publicSourceDir = path.join(imagesDir, "source");
+  if (await exists(publicSourceDir)) {
+    const entries = await fs.readdir(publicSourceDir);
+    if (entries.length === 0) {
+      await fs.rm(publicSourceDir, { recursive: true, force: true });
+      console.log("Removed empty public/images/source folder.");
+    } else {
+      console.warn("WARNING: public/images/source exists and is not empty. Move it outside public before build.");
+    }
+  }
 
-    await sharp(file.inputPath)
+  const sourceFiles = await walk(imagesDir);
+
+  if (sourceFiles.length === 0) {
+    console.log("No jpg, jpeg, or png images found to convert.");
+    return;
+  }
+
+  const stamp = new Date()
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\..+/, "")
+    .replace("T", "_");
+
+  const backupRoot = path.join(projectRoot, `_private_image_source_backup_${stamp}`, "source");
+
+  for (const src of sourceFiles) {
+    const parsed = path.parse(src);
+    const out = path.join(parsed.dir, `${parsed.name}.webp`);
+
+    await sharp(src)
       .rotate()
       .webp({ quality: 82 })
-      .toFile(outputPath);
+      .toFile(out);
 
-    console.log(`Converted ${file.name} -> ${outputName}`);
+    const rel = path.relative(imagesDir, src);
+    const backupPath = path.join(backupRoot, rel);
+    await fs.mkdir(path.dirname(backupPath), { recursive: true });
+    await fs.rename(src, backupPath);
+
+    console.log(`Converted: ${rel} -> ${path.relative(imagesDir, out)}`);
   }
+
+  console.log(`Original files moved to: ${backupRoot}`);
 }
 
-convertImages().catch((error) => {
+main().catch((error) => {
   console.error(error);
-  process.exitCode = 1;
+  process.exit(1);
 });
