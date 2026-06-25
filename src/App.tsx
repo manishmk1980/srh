@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Activity, ArrowRight, Building, ChevronRight, ClipboardList, Clock, Globe, Heart, HeartHandshake, HeartPulse, HelpCircle, Mail, MapPin, Menu, MessageSquare, Phone, ShieldAlert, ShieldCheck, Sparkles, Stethoscope, Thermometer, Users2, X } from 'lucide-react';
+import { Activity, ArrowRight, Building, Clock, HeartHandshake, Mail, MapPin, Menu, Phone, ShieldCheck, Stethoscope, Users2, X } from 'lucide-react';
 
 import Logo from './components/Logo';
 import KioskSimulator from './components/KioskSimulator';
 import ServiceInquiryForm from './components/ServiceInquiryForm';
 import HealthScoreCalculator from './components/HealthScoreCalculator';
+import ProgramCardsSection from './components/ProgramCardsSection';
 import { ServiceType } from './types';
 
 // @ts-ignore
@@ -127,29 +128,6 @@ export default function App() {
       q: 'How do I download my vital screening reports?',
       a: 'As soon as your assessment session at an Ambey Sales kiosk finishes, you will immediately receive a physical thermal slip print. Additionally, a synchronized digital copy is instantly pushed to your registered mobile number and email ID.'
     }
-  ];
-
-  const solutionCards = [
-    {
-      title: 'Community Health Screening',
-      desc: 'For camps, local health drives, and preventive wellness support.',
-      icon: <HeartPulse className="w-5 h-5" />,
-    },
-    {
-      title: 'Clinic & Hospital Kiosk Deployment',
-      desc: 'For healthcare providers looking to add assisted digital screening and teleconsultation workflows.',
-      icon: <Building className="w-5 h-5" />,
-    },
-    {
-      title: 'CSR / NGO Health Programs',
-      desc: 'For structured outreach, rural screening, and social health initiatives.',
-      icon: <HeartHandshake className="w-5 h-5" />,
-    },
-    {
-      title: 'Industrial & Workforce Wellness',
-      desc: 'For organized employee health screening, periodic camps, and referral coordination.',
-      icon: <Users2 className="w-5 h-5" />,
-    },
   ];
 
   return (
@@ -435,29 +413,20 @@ export default function App() {
         </div>
       </section>
 
-      {/* 6. SERVICES AND KIOSK DEPLOYMENT GRID */}
-      <section className="py-14 sm:py-16 lg:py-20 bg-white border-y border-[#D7E7EA]" id="clinical-plans">
+      {/* 6. HEALTHCARE DEPLOYMENT & OUTREACH PROGRAMS */}
+      <ProgramCardsSection onEnquire={() => handleOpenBooking()} />
+
+      {/* 7. SERVICES GRID */}
+      <section className="py-14 sm:py-16 lg:py-20 bg-white border-b border-[#D7E7EA]" id="service-options">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center space-y-8">
           <div className="space-y-2">
-            <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">SOCIAL HEALTHCARE + B2B DEPLOYMENT</span>
+            <span className="text-xs text-[#0E7490] font-bold uppercase tracking-widest font-mono">PREVENTIVE SCREENING SERVICES</span>
             <h2 className="font-heading font-black text-3xl sm:text-4xl text-text-navy tracking-tight leading-tight">
-              Healthcare Services & Kiosk Deployment Solutions
+              Healthcare Services & Kiosk Support Options
             </h2>
             <p className="text-xs text-text-muted max-w-3xl mx-auto font-sans leading-relaxed">
-              SRH SWASTH SEVA works across two connected healthcare needs: preventive screening services for communities and kiosk deployment support for healthcare organizations. Whether you are planning a rural health camp, setting up a clinic-level screening point, exploring a telemedicine supported kiosk for your hospital, or planning CSR/industrial wellness screening, SRH helps you choose the right model and next steps.
+              SRH SWASTH SEVA helps individuals and organizations plan assisted screening workflows, consultation coordination, and next-step service enquiries through M/S AMBEY SALES.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {solutionCards.map((card) => (
-              <div key={card.title} className="p-5 bg-[#F7FBFC] border border-[#D7E7EA] rounded-2xl text-left shadow-xs">
-                <div className="w-10 h-10 rounded-xl bg-[#EEF8FA] border border-[#D7E7EA] text-[#0E7490] flex items-center justify-center mb-4">
-                  {card.icon}
-                </div>
-                <h3 className="font-heading font-black text-text-navy text-sm">{card.title}</h3>
-                <p className="text-xs text-text-muted mt-2 leading-relaxed font-medium">{card.desc}</p>
-              </div>
-            ))}
           </div>
 
           {/* Services cards grid */}

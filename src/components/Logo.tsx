@@ -11,7 +11,7 @@ export default function Logo({
   variant = 'full',
   size = 48,
 }: LogoProps) {
-  const logoSrc = `${import.meta.env.BASE_URL}images/srh-logo.png`;
+  const logoSrc = `${import.meta.env.BASE_URL}images/srh-swasth-seva-logo.webp`;
   const isLight = variant === 'light-text';
 
   if (variant === 'compact' || variant === 'light-text') {
@@ -23,7 +23,7 @@ export default function Logo({
         >
           <img
             src={logoSrc}
-            alt="SRH SWASTH SEVA logo"
+            alt="SRH Swasth Seva logo"
             className="w-full h-full object-contain p-[1px]"
             loading="eager"
           />
@@ -57,7 +57,7 @@ export default function Logo({
     >
       <img
         src={logoSrc}
-        alt="SRH SWASTH SEVA Har Din Swasth logo"
+        alt="SRH Swasth Seva logo"
         className="w-full h-full object-contain drop-shadow-lg"
         loading="eager"
       />
