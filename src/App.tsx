@@ -157,6 +157,7 @@ export default function App() {
             <button onClick={() => scrollToSection('clinical-plans')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Services</button>
             <button onClick={() => scrollToSection('digital-kiosk')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Technology</button>
             <button onClick={() => scrollToSection('onboarding-timeline')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">How It Works</button>
+            <button onClick={() => scrollToSection('media-release')} className="text-sm font-bold text-slate-600 hover:text-sky-700 transition-colors">Media Release</button>
             <button onClick={() => scrollToSection('faq-block')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">FAQs</button>
             <button onClick={() => scrollToSection('contact-panel')} className="hover:text-primary-teal focus:text-primary-teal outline-none transition-colors">Contact</button>
           </nav>
@@ -190,6 +191,7 @@ export default function App() {
               <button onClick={() => scrollToSection('clinical-plans')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Services</button>
               <button onClick={() => scrollToSection('digital-kiosk')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Our Health Technology</button>
               <button onClick={() => scrollToSection('onboarding-timeline')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">How It Works</button>
+              <button onClick={() => scrollToSection('media-release')} className="text-sm font-bold text-slate-600 hover:text-sky-700 transition-colors">Media Release</button>
               <button onClick={() => scrollToSection('faq-block')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">FAQs</button>
               <button onClick={() => scrollToSection('contact-panel')} className="text-left py-2 border-b border-slate-100 hover:text-primary-teal">Contact</button>
             </div>
@@ -887,6 +889,149 @@ export default function App() {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* 12. MEDIA RELEASE / PRESS COVERAGE SECTION */}
+      <section id="media-release" className="scroll-mt-32 pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 bg-gradient-to-b from-white via-slate-50 to-white border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <p className="text-sky-700 font-black tracking-[0.28em] text-xs uppercase mb-3">
+              Media Release
+            </p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-slate-950 leading-tight">
+              SRH Swasth Seva in News &amp; Media
+            </h2>
+            <p className="mt-4 text-slate-600 leading-relaxed">
+              Media coverage, public launch updates, and press mentions from the inauguration
+              and community healthcare service awareness activities.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-[1.35fr_0.85fr] gap-6 mb-6">
+            <article className="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/60 grid md:grid-cols-[0.95fr_1.05fr]">
+              <div className="bg-slate-100 min-h-[260px]">
+                <img
+                  src="/media-release/family-pic.jpeg"
+                  alt="SRH Swasth Seva inauguration and launch event"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-7 sm:p-9 flex flex-col justify-center">
+                <span className="inline-flex w-fit rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-sky-700 mb-4">
+                  Launch Coverage
+                </span>
+                <h3 className="font-heading font-black text-2xl sm:text-3xl text-slate-950 leading-tight mb-4">
+                  SRH Swasth Seva Launched in Jamshedpur
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  SRH Swasth Seva healthcare service centre was inaugurated at Bamangora,
+                  with an aim to support affordable healthcare facilities, screening support,
+                  medicines, and modern diagnostic access for local communities.
+                </p>
+              </div>
+            </article>
+
+            <article className="rounded-[2rem] bg-slate-950 border border-slate-800 p-7 sm:p-9 shadow-xl shadow-slate-300/40 flex flex-col justify-center">
+              <span className="inline-flex w-fit rounded-full border border-cyan-700/50 bg-cyan-400/10 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-cyan-300 mb-4">
+                Video Coverage
+              </span>
+              <h3 className="font-heading font-black text-2xl text-white mb-3">
+                YouTube Media Coverage
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-6">
+                Watch the launch and public coverage of SRH Swasth Seva.
+              </p>
+              <a
+                href="https://youtu.be/Sb4EAoT8-m0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-fit items-center justify-center rounded-full bg-[#4e634f] px-6 py-3 text-sm font-black text-white hover:shadow-lg hover:-translate-y-0.5 transition-all"
+              >
+                Watch Video
+              </a>
+            </article>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <article className="bg-white border border-slate-200 rounded-[1.6rem] overflow-hidden shadow-lg shadow-slate-200/50 flex flex-col">
+              <div className="h-52 bg-white border-b border-slate-200">
+                <img src="/media-release/media1.jpg" alt="SRH Swasth Seva newspaper coverage" className="w-full h-full object-contain bg-white p-3" />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <span className="text-[11px] font-black uppercase tracking-wider text-sky-700 mb-3">Press Coverage</span>
+                <h3 className="font-heading font-black text-xl text-slate-950 mb-3">Loktantra Savera</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-5 flex-1">
+                  SRH Health Service launched in Jamshedpur, people will get affordable health facilities.
+                </p>
+                <a href="https://loktantrasavera.com/jamshedpur-4/srh-health-service-launched-in-jamshedpur-people-will-get-affordable-health-facilities/" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit rounded-full bg-[#4e634f] px-5 py-2.5 text-xs font-black text-white">
+                  Read Coverage
+                </a>
+              </div>
+            </article>
+
+            <article className="bg-white border border-slate-200 rounded-[1.6rem] overflow-hidden shadow-lg shadow-slate-200/50 flex flex-col">
+              <div className="h-52 bg-white border-b border-slate-200">
+                <img src="/media-release/media2.jpg" alt="SRH Swasth Seva media clipping" className="w-full h-full object-contain bg-white p-3" />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <span className="text-[11px] font-black uppercase tracking-wider text-sky-700 mb-3">Digital News</span>
+                <h3 className="font-heading font-black text-xl text-slate-950 mb-3">Inside Jharkhand</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-5 flex-1">
+                  Grand inauguration of SRH Health Services in Bamangora with medical facilities under one roof.
+                </p>
+                <a href="https://insidejharkhand.in/jamshedpur-grand-inauguration-of-srh-health-services-in-bamangora-state-of-the-art-medical-facilities-will-be-available-under-one-roof/" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit rounded-full bg-[#4e634f] px-5 py-2.5 text-xs font-black text-white">
+                  Read Coverage
+                </a>
+              </div>
+            </article>
+
+            <article className="bg-white border border-slate-200 rounded-[1.6rem] overflow-hidden shadow-lg shadow-slate-200/50 flex flex-col">
+              <div className="h-52 bg-white border-b border-slate-200">
+                <img src="/media-release/media3.jpg" alt="SRH Swasth Seva newspaper article" className="w-full h-full object-contain bg-white p-3" />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <span className="text-[11px] font-black uppercase tracking-wider text-sky-700 mb-3">Video News</span>
+                <h3 className="font-heading font-black text-xl text-slate-950 mb-3">Samachar Bharat Live</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-5 flex-1">Jamshedpur: SRH Swasth Seva centre inaugurated at Bamangora.</p>
+                <a href="https://youtu.be/8RbR9DtkuVg" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit rounded-full bg-[#4e634f] px-5 py-2.5 text-xs font-black text-white">
+                  Watch Video
+                </a>
+              </div>
+            </article>
+
+            <article className="bg-white border border-slate-200 rounded-[1.6rem] overflow-hidden shadow-lg shadow-slate-200/50 flex flex-col">
+              <div className="h-52 bg-white border-b border-slate-200">
+                <img src="/media-release/media4.jpg" alt="SRH Swasth Seva press release coverage" className="w-full h-full object-contain bg-white p-3" />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <span className="text-[11px] font-black uppercase tracking-wider text-sky-700 mb-3">News Mention</span>
+                <h3 className="font-heading font-black text-xl text-slate-950 mb-3">Sharp Bharat</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-5 flex-1">
+                  Jamshedpur health: SRH Healthcare launched, affordable healthcare facilities for people.
+                </p>
+                <a href="https://sharpbharat.com/jamshedpur-health-srh-healthcare-launched/" target="_blank" rel="noopener noreferrer" className="inline-flex w-fit rounded-full bg-[#4e634f] px-5 py-2.5 text-xs font-black text-white">
+                  Read Coverage
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-6 bg-white border border-slate-200 rounded-[1.6rem] p-6 sm:p-7 shadow-lg shadow-slate-200/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div>
+              <h3 className="font-heading font-black text-xl text-slate-950">Social Media Coverage</h3>
+              <p className="text-slate-600 mt-1">View launch updates and shared public coverage on Facebook.</p>
+            </div>
+            <a
+              href="https://www.facebook.com/share/1HPFVRurqL/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit rounded-full bg-[#4e634f] px-6 py-3 text-sm font-black text-white"
+            >
+              View Facebook Post
+            </a>
           </div>
         </div>
       </section>
